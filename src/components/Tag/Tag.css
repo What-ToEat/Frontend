@@ -1,0 +1,24 @@
+.tag {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background: #F77248;
+  margin: 3px;
+  white-space: nowrap; /* 텍스트가 줄바꿈되지 않도록 설정 */
+  height: 20px;
+}
+
+.tag-content {
+  color: #FFF;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-top: 1px;
+  margin-left: 8px;
+  margin-right: 8px;
+  display: flex;
+  align-items: center; /* 자식 요소 내에서 수직 중앙 정렬 */
+}
