@@ -1,5 +1,6 @@
 import React from 'react';
 import RestaurantView from './components/RestaurantView/RestaurantView';
+import SelectableTag from './components/Tag/SelectableTag'
 
 function App() {
   // Mock Data
@@ -15,8 +16,21 @@ function App() {
   };
   const restaurants = [restaurantInfo, restaurantInfo2, restaurantInfo, restaurantInfo2, restaurantInfo, restaurantInfo2, restaurantInfo, restaurantInfo2, restaurantInfo, restaurantInfo2, restaurantInfo, restaurantInfo2];
 
+  const tags = [
+    '트렌디', '독특한인테리어', '가족모임', '특별한날', '힙한', '가성비',
+    '반려동물동반', '생일파티', '야외석', '혼자오기좋은', '이탈리안', '요즘핫한',
+    '술집', '캐주얼', 'TV출연맛집', '프리미엄'
+  ];
+
   return (
-    <RestaurantView restaurants={restaurants}/>
+    <>
+      <div>
+        {tags.map((tag) => (
+          <SelectableTag key={tag} name={tag} />
+        ))}
+      </div>
+      <RestaurantView restaurants={restaurants}/>
+    </>
   );
 }
 export default App;
