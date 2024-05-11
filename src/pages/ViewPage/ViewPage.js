@@ -28,9 +28,7 @@ const ViewPage = () => {
 
   return (
     <div className='view-page'>
-      {/* <header> */}
-			  <Logo/>
-      {/* </header> */}
+      <Logo/>
       <div className="search-bar">
         <input type="text" placeholder="식당 검색" className="search-input" />
         <button className="search-button">
