@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import RestaurantView from './components/RestaurantView/RestaurantView';
 import SelectableTag from './components/Tag/SelectableTag'
 
@@ -23,14 +24,24 @@ function App() {
   ];
 
   return (
-    <>
+    <Router>
+      <div className="app">
+        <Routes>
+          <Route path="/" element={<SelectableTag key={"캐주얼"} name={"캐주얼"} />} />
+          <Route path="/about" element={<SelectableTag key={"힙한"} name={"힙한"} />} />
+          <Route path="/contact" element={<RestaurantView restaurants={restaurants}/>} />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+export default App;
+
+{/* <>
       <div>
         {tags.map((tag) => (
           <SelectableTag key={tag} name={tag} />
         ))}
       </div>
       <RestaurantView restaurants={restaurants}/>
-    </>
-  );
-}
-export default App;
+    </> */}
