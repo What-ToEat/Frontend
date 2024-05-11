@@ -1,0 +1,7 @@
+.logo {
+	display: block;
+	width: 136px;
+	height: 34px;
+	flex-shrink: 0;
+	background: url("/public/images/logo.png") transparent 0% / cover no-repeat;
+}

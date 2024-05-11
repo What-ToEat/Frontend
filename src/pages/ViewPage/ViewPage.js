@@ -2,6 +2,7 @@ import React from 'react';
 import './ViewPage.css';
 import RestaurantView from '../../components/RestaurantView/RestaurantView';
 import SelectableTag from '../../components/Tag/SelectableTag'
+import Logo from '../../components/Logo/Logo'
 
 const ViewPage = () => {
 	// Mock Data
@@ -27,9 +28,9 @@ const ViewPage = () => {
 
   return (
     <div className='view-page'>
-			<header className="header">
-        <h1 className="logo">뭐먹을까?</h1>
-      </header>
+      {/* <header> */}
+			  <Logo/>
+      {/* </header> */}
       <div className="search-bar">
         <input type="text" placeholder="식당 검색" className="search-input" />
         <button className="search-button">
