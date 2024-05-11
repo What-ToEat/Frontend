@@ -23,15 +23,31 @@ const ViewPage = () => {
     '술집', '캐주얼', 'TV출연맛집', '프리미엄'
   ];
 
+  const navItems = ['전체', '강남', '홍대', '잠실', '건대', '신촌'];
+
   return (
-    <>
-			<div>
-				{tags.map((tag) => (
-					<SelectableTag key={tag} name={tag} />
-				))}
-			</div>
+    <div className='view-page'>
+			<header className="header">
+        <h1 className="logo">뭐먹을까?</h1>
+      </header>
+      <div className="search-bar">
+        <input type="text" placeholder="식당 검색" className="search-input" />
+        <button className="search-button">
+          <i className="fas fa-search"></i>
+        </button>
+      </div>
+      <nav className="search-nav">
+        {navItems.map((item) => (
+          <button key={item} className="nav-item">{item}</button>
+        ))}
+      </nav>
+      <div className="search-tags">
+ 				{tags.map((tag) => (
+ 					<SelectableTag key={tag} name={tag} />
+ 				))}
+ 			</div>
 			<RestaurantView restaurants={restaurants}/>
-		</>
+		</div>
   );
 };
 
