@@ -1,0 +1,56 @@
+.card {
+  width: 100%; /* 카드가 부모 요소의 너비를 초과하지 않도록 설정 */
+  max-width: 186px; /* 최대 너비를 설정하여 디자인이 유지되도록 합니다 */
+  height: 177px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  border: 1px solid #D9D9D9;
+  background: #FFF;
+  padding: 6px;
+  transition: transform 0.3s ease, background-color 0.3s ease; /* 애니메이션 추가 */
+}
+
+.card:hover {
+  transform: scale(1.02); /* 살짝 확대 효과 */
+  background-color: rgba(0, 0, 0, 0.1); /* 살짝 어두워지는 효과 */
+}
+
+.card-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* 전체 너비를 사용하도록 설정 */
+  height: 82px; /* 이미지 높이와 일치 */
+  overflow: hidden; /* 컨테이너를 넘어가는 이미지 부분을 숨김 */
+}
+
+.card-image img {
+  width: 100%; /* 이미지가 컨테이너의 전체 너비를 차지하도록 설정 */
+  height: 100%; /* 이미지가 컨테이너의 전체 높이를 차지하도록 설정 */
+  object-fit: cover; /* 이미지 비율을 유지하면서 컨테이너에 맞게 조정 */
+}
+
+.card-content h2 {
+  color: #000;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin: 7px 0 4px 0;
+}
+
+.divider {
+  border-radius: 5px;
+  background: #D9D9D9;
+  width: 100%; /* 전체 너비를 사용하도록 설정 */
+  height: 1px;
+  flex-shrink: 0;
+}
+
+.tags {
+  width: 100%;
+  margin-top: 1px;
+  overflow: hidden;
+  height: 51px;
+}

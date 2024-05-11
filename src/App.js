@@ -1,25 +1,22 @@
 import React from 'react';
-import { atom, useRecoilState } from 'recoil';
-
-// 상태 정의
-const textState = atom({
-  key: 'textState', // 고유한 ID
-  default: '', // 기본값
-});
+import RestaurantView from './components/RestaurantView/RestaurantView';
 
 function App() {
-  const [text, setText] = useRecoilState(textState);
-
-  const onChange = (event) => {
-    setText(event.target.value);
+  // Mock Data
+  const restaurantInfo = {
+    name: "맛있는 식당",
+    thumbnail: "https://img.hankyung.com/photo/202103/0Q.25813444.1.jpg",
+    tags: ["맛집", "맛집", "맛집", "맛집", "맛집", "맛집", "맛집"]
   };
+  const restaurantInfo2 = {
+    name: "경주에서 제일 맛있는 초초초초초맛집",
+    thumbnail: "https://www.gyeongju.go.kr/upload/content/thumb/20201228/5DE22B6931D74EF9B333A081342A41F4.jpg",
+    tags: ["데이트", "가족과 함께", "가족과 함께", "한식", "경주"]
+  };
+  const restaurants = [restaurantInfo, restaurantInfo2, restaurantInfo, restaurantInfo2, restaurantInfo, restaurantInfo2, restaurantInfo, restaurantInfo2, restaurantInfo, restaurantInfo2, restaurantInfo, restaurantInfo2];
 
   return (
-    <div>
-      <input type="text" value={text} onChange={onChange} />
-      <br />
-      입력한 텍스트: {text}
-    </div>
+    <RestaurantView restaurants={restaurants}/>
   );
 }
 export default App;
