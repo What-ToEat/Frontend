@@ -3,6 +3,7 @@ import './ViewPage.css';
 import RestaurantView from '../../components/RestaurantView/RestaurantView';
 import SelectableTag from '../../components/Tag/SelectableTag'
 import Logo from '../../components/Logo/Logo'
+import SearchBar from '../../components/SearchBar/SearchBar'
 
 const ViewPage = () => {
 	// Mock Data
@@ -29,12 +30,7 @@ const ViewPage = () => {
   return (
     <div className='view-page'>
       <Logo/>
-      <div className="search-bar">
-        <input type="text" placeholder="식당 검색" className="search-input" />
-        <button className="search-button">
-          <i className="fas fa-search"></i>
-        </button>
-      </div>
+      <SearchBar/>
       <nav className="search-nav">
         {navItems.map((item) => (
           <button key={item} className="nav-item">{item}</button>
