@@ -4,6 +4,7 @@ import RestaurantView from '../../components/RestaurantView/RestaurantView';
 import SelectableTag from '../../components/Tag/SelectableTag'
 import Logo from '../../components/Logo/Logo'
 import SearchBar from '../../components/SearchBar/SearchBar'
+import TagNav from '../../components/TagNav/TagNav';
 
 const ViewPage = () => {
 	// Mock Data
@@ -25,17 +26,11 @@ const ViewPage = () => {
     '술집', '캐주얼', 'TV출연맛집', '프리미엄'
   ];
 
-  const navItems = ['전체', '강남', '홍대', '잠실', '건대', '신촌'];
-
   return (
     <div className='view-page'>
       <Logo/>
       <SearchBar/>
-      <nav className="search-nav">
-        {navItems.map((item) => (
-          <button key={item} className="nav-item">{item}</button>
-        ))}
-      </nav>
+      <TagNav/>
       <div className="search-tags">
  				{tags.map((tag) => (
  					<SelectableTag key={tag} name={tag} />
