@@ -1,0 +1,45 @@
+.selectable-tag {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3px;
+  white-space: nowrap; /* 텍스트가 줄바꿈되지 않도록 설정 */
+  height: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+	border-radius: 20px;
+	border: 1px solid #C3C3C3;
+	box-sizing: border-box;
+	background: #FFF;
+	color: #000;
+}
+
+.selectable-tag:hover {
+  background-color: #e0e0e0;
+}
+
+.selectable-tag.selected {
+  background-color: #F77248;
+  color: #ffffff;
+	border-radius: 10px;
+	border: 0;
+	padding: 1px 1px;
+}
+
+.selectable-tag-content {
+  margin-top: 1px;
+  margin-left: 8px;
+  margin-right: 8px;
+  display: flex;
+  align-items: center; /* 자식 요소 내에서 수직 중앙 정렬 */
+
+	font-family: Inter;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+}
+
+.selectable-tag-content.selected {
+  font-weight: 400;
+}

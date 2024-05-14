@@ -1,0 +1,67 @@
+.tag-list-wrapper {
+  margin-top: 10px;
+  margin-bottom: 11px;
+}
+
+.tag-list-container {
+  text-align: center;
+  margin-top: 4px;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+  border-bottom: 2px solid #F77248;
+  padding-bottom: 5px;
+}
+
+.tag-list-title {
+  color: #C15533;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-left: 3px;
+}
+
+.tag-list.collapsed {
+  max-height: 109px; /* 두 줄 높이 */
+}
+
+.tag-list.expanded {
+  max-height: 500px; /* 충분히 큰 값으로 설정 */
+}
+
+.toggle-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.triangle {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.triangle.down {
+  transform: rotate(180deg);
+}
+
+.triangle.up {
+  transform: rotate(0deg);
+}
