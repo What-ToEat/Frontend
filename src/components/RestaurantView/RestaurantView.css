@@ -29,3 +29,10 @@
   display: flex;
   justify-content: center;
 }
+
+.no-restaurants {
+  text-align: center;
+  color: #999;
+  font-size: 1.2em;
+  margin-top: 20px;
+}

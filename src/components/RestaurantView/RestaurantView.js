@@ -19,18 +19,24 @@ const RestaurantView = ({ restaurants }) => {
       <div className='restaurant-grid-title'>
         # 여긴 어때요?
       </div>
-      <div className="restaurant-grid">
-        {filteredRestaurants.map((restaurant, index) => (
-          <div className="restaurant-grid-item" key={index}>
-            <RestaurantCard 
-              name={restaurant.name} 
-              thumbnail={restaurant.thumbnail} 
-              tags={restaurant.tags}
-            />
+        {filteredRestaurants.length > 0 ? (
+          <div className="restaurant-grid"> {
+          filteredRestaurants.map((restaurant, index) => (
+            <div className="restaurant-grid-item" key={index}>
+              <RestaurantCard 
+                name={restaurant.name} 
+                thumbnail={restaurant.thumbnail} 
+                tags={restaurant.tags}
+              />
+            </div>
+          ))
+          }</div>
+        ) : (
+          <div className="no-restaurants">
+            조회된 레스토랑이 없습니다.
           </div>
-        ))}
+        )}
       </div>
-    </div>
   );
 };
 
