@@ -16,7 +16,7 @@ const RestaurantCard = ({ name, thumbnail, tags }) => {
 					<div className="divider"></div>
 					<div className="tags">
             {tags.map((tag, index) => (
-              <Tag key={index} name={tag} />
+              <Tag key={index} name={tag.name} category={tag.category} />
             ))}
 					</div>
 				</div>

@@ -1,19 +1,17 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { selectedTagsState, selectedNavItemState } from '../../recoil/state';
+import { selectedTagsState } from '../../recoil/state';
 import RestaurantCard from '../RestaurantCard/RestaurantCard';
 import './RestaurantView.css';
 
 const RestaurantView = ({ restaurants }) => {
   const selectedTags = useRecoilValue(selectedTagsState);
-  const selectedNavItem = useRecoilValue(selectedNavItemState);
 
   // 필터링 함수 정의
   const filteredRestaurants = restaurants.filter((restaurant) => {
-    const isNavItemIncluded = selectedNavItem === '전체' || restaurant.tags.includes(selectedNavItem);
-    const areAllTagsIncluded = selectedTags.every(tag => restaurant.tags.includes(tag));
-
-    return isNavItemIncluded && areAllTagsIncluded;
+    const restaurantTagNames = restaurant.tags.map(tag => tag.name);
+    const areAllTagsIncluded = selectedTags.every(tag => restaurantTagNames.includes(tag));
+    return areAllTagsIncluded;
   });
 
   return (
