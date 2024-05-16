@@ -13,7 +13,8 @@ const ViewPage = () => {
   const [tags, setTags] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
   const [selectedNavItem, setSelectedNavItem] = useRecoilState(selectedNavItemState);
-  const [selectedTags, setSelectedTags] = useRecoilState(selectedTagsState);
+  const [, setSelectedTags] = useRecoilState(selectedTagsState);
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     fetch("http://43.202.161.19:8080/api/tags")
@@ -33,17 +34,30 @@ const ViewPage = () => {
       .then(({data: {restaurants}}) => {
         setRestaurants(restaurants);
         setSelectedTags([]); // Reset selected tags
+        setSearchResults([]);
       })
       .catch(error => console.error('Error fetching restaurants:', error));
   }, [selectedNavItem]);
 
+  const handleSearch = (keyword) => {
+    const url = `http://43.202.161.19:8080/api/restaurants/keyword?keyword=${keyword}&page=1`;
+
+    fetch(url)
+      .then(response => response.json())
+      .then(({data: {restaurants}}) => {
+        setSearchResults(restaurants);
+        setSelectedTags([]);
+      })
+      .catch(error => console.error('Error fetching restaurants:', error));
+  };
+
   return (
     <div className='view-page'>
       <Logo/>
-      <SearchBar/>
+      <SearchBar onSearch={handleSearch} />
       <TagNav/>
       <TagList tags={tags}/>
-			<RestaurantView restaurants={restaurants}/>
+			<RestaurantView restaurants={searchResults.length > 0 ? searchResults : restaurants}/>
 		</div>
   );
 };

@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './SearchBar.css';
 
-const SearchBar = () => {
+const SearchBar = ({ onSearch }) => {
+  const [keyword, setKeyword] = useState('');
+
+  const handleInputChange = (event) => {
+    setKeyword(event.target.value);
+  };
+
+  const handleSearchClick = () => {
+    onSearch(keyword);
+  };
+
   return (
     <div className="search-bar">
-      <input type="text" placeholder="식당 검색" className="search-input" />
-      <button className="search-button">
+      <input 
+        type="text" 
+        placeholder="식당 검색" 
+        className="search-input" 
+        value={keyword}
+        onChange={handleInputChange}
+      />
+      <button className="search-button" onClick={handleSearchClick}>
         <i className="fas fa-search"></i>
       </button>
     </div>
