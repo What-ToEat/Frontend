@@ -12,6 +12,12 @@ const SearchBar = ({ onSearch }) => {
     onSearch(keyword);
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSearchClick();
+    }
+  };
+
   return (
     <div className="search-bar">
       <input 
@@ -20,6 +26,7 @@ const SearchBar = ({ onSearch }) => {
         className="search-input" 
         value={keyword}
         onChange={handleInputChange}
+        onKeyDown={handleKeyPress}
       />
       <button className="search-button" onClick={handleSearchClick}>
         <i className="fas fa-search"></i>
