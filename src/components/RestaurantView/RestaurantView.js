@@ -4,7 +4,7 @@ import { selectedTagsState } from '../../recoil/state';
 import RestaurantCard from '../RestaurantCard/RestaurantCard';
 import './RestaurantView.css';
 
-const RestaurantView = ({ restaurants }) => {
+const RestaurantView = ({ restaurants, searchKeyword }) => {
   const selectedTags = useRecoilValue(selectedTagsState);
 
   // 필터링 함수 정의
@@ -17,11 +17,11 @@ const RestaurantView = ({ restaurants }) => {
   return (
     <div className='restaurant-view'>
       <div className='restaurant-grid-title'>
-        # 여긴 어때요?
+        {searchKeyword ? `# ${searchKeyword} 검색 결과` : '# 여긴 어때요?'}
       </div>
-        {filteredRestaurants.length > 0 ? (
-          <div className="restaurant-grid"> {
-          filteredRestaurants.map((restaurant, index) => (
+      {filteredRestaurants.length > 0 ? (
+        <div className="restaurant-grid">
+          {filteredRestaurants.map((restaurant, index) => (
             <div className="restaurant-grid-item" key={index}>
               <RestaurantCard 
                 name={restaurant.name} 
@@ -29,14 +29,14 @@ const RestaurantView = ({ restaurants }) => {
                 tags={restaurant.tags}
               />
             </div>
-          ))
-          }</div>
-        ) : (
-          <div className="no-restaurants">
-            조회된 레스토랑이 없습니다.
-          </div>
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className="no-restaurants">
+          조회된 레스토랑이 없습니다.
+        </div>
+      )}
+    </div>
   );
 };
 
