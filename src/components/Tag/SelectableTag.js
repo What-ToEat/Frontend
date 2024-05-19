@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 import { selectedTagsState } from '../../recoil/state';
 import './SelectableTag.css';
 
-const SelectableTag = ({ name }) => {
+const SelectableTag = ({ name, category }) => {
   const [selectedTags, setSelectedTags] = useRecoilState(selectedTagsState);
 
   const isSelected = selectedTags.includes(name);

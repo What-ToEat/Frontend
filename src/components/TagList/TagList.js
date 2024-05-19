@@ -31,7 +31,7 @@ const TagList = ({ tags }) => {
           ref={tagListRef}
         >
           {tags.map((tag) => (
-            <SelectableTag key={tag} name={tag} />
+            <SelectableTag key={tag.name} name={tag.name} category={tag.category} />
           ))}
         </div>
         <div className="toggle-button-container">

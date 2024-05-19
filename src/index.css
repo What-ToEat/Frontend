@@ -2,11 +2,16 @@
   box-sizing: border-box;
 }
 
+:root {
+  --vh: 1vh;
+}
+
 html {
   margin: 0;
   padding: 0;
   width: 100%;
-  overflow-x: hidden; 
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 body {
@@ -16,10 +21,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin: 0;
-  padding: 0;
   width: 100%;
-  overflow-x: hidden; 
+  overflow-x: hidden;
+  box-sizing: border-box;
+  overscroll-behavior: none;
 }
 
 code {

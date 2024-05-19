@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.viewer {
+  width: 100vw;
+  max-width: 580px;
+  height: calc(var(--vh, 1vh) * 100);
+  overflow-y: auto;
+  margin: 0 auto;
+  overscroll-behavior: contain;
+}
