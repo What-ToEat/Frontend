@@ -1,3 +1,37 @@
 .view-page {
-	margin: 20px 15px 0px 15px;
+  margin: 20px 15px 0px 15px;
+}
+
+.view-page-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Inter, sans-serif;
+  font-size: 1.5em;
+  font-weight: 600;
+  color: #F77248; /* 메인 컬러 사용 */
+  position: fixed; /* 스크롤 시 고정 */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #F77248; /* 메인 컬러 사용 */
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+  margin-right: 10px;
 }

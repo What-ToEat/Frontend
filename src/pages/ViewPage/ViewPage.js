@@ -147,7 +147,12 @@ const ViewPage = () => {
         restaurants={searchResults !== null ? searchResults : restaurants} 
         searchKeyword={searchKeyword} 
       />
-      {isLoading && <div className="view-page-loading">Loading...</div>}
+      {isLoading && (
+        <div className="view-page-loading">
+          <div className="spinner"></div>
+          Loading...
+        </div>
+      )}
     </div>
   );
 };
