@@ -5,6 +5,7 @@
 	border-radius: 10px;
 	background: #F6F6F6;
 	padding: 15px;
+	min-height: 500px;
 }
 
 .restaurant-grid-title {
