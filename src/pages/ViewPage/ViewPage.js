@@ -13,7 +13,7 @@ const ViewPage = () => {
   const [tags, setTags] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
   const [selectedNavItem, setSelectedNavItem] = useRecoilState(selectedNavItemState);
-  const [, setSelectedTags] = useRecoilState(selectedTagsState);
+  const [selectedTags, setSelectedTags] = useRecoilState(selectedTagsState);
   const [searchResults, setSearchResults] = useState(null);
   const [searchKeyword, setSearchKeyword] = useState('');
 
@@ -54,12 +54,32 @@ const ViewPage = () => {
       .catch(error => console.error('Error fetching restaurants:', error));
   };
 
+  const handleTagSearch = () => {
+    let url = 'http://43.202.161.19:8080/api/restaurants/tag?page=1';
+    if (selectedNavItem !== '전체') {
+      url += `&place=${encodeURIComponent(selectedNavItem)}`;
+    }
+    if (selectedTags.length > 0) {
+      const tagParams = selectedTags.map(tag => `tags=${encodeURIComponent(tag)}`).join('&');
+      url += `&${tagParams}`;
+    }
+
+    fetch(url)
+      .then(response => response.json())
+      .then(({data: {restaurants}}) => {
+        setRestaurants(restaurants);
+        setSearchResults(null);
+        setSearchKeyword('');
+      })
+      .catch(error => console.error('Error fetching restaurants:', error));
+  };
+
   return (
     <div className='view-page'>
       <Logo/>
       <SearchBar onSearch={handleSearch} />
       <TagNav/>
-      <TagList tags={tags}/>
+      <TagList tags={tags} onSearch={handleTagSearch}/>
 			<RestaurantView 
         restaurants={searchResults !== null ? searchResults : restaurants} 
         searchKeyword={searchKeyword} 
