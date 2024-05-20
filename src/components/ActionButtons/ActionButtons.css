@@ -1,0 +1,15 @@
+.action-button-container {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 12px;
+}
+
+.action-button {
+	width: 48%;
+	height: 70px;
+	flex-shrink: 0;
+	border-radius: 10px;
+	border: 1px solid #D6D6D6;
+	background: #F6F6F6;
+}

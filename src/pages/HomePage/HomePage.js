@@ -38,17 +38,20 @@ const HomePage = () => {
         setSelectedTag={setSelectedTag}
       />
       <QueryButton isEnabled={isQueryButtonEnabled} />
-      <ActionButtons />
-      <RestaurantView 
-          restaurants={restaurants} 
-          searchKeyword={''} 
-        />
-      {isLoading && (
-        <div className="view-page-loading">
-          <div className="spinner"></div>
-          Loading...
-        </div>
-      )}
+      <div className='home-page-content'>
+        <div className='home-page-divider'></div>
+        <ActionButtons />
+        <RestaurantView 
+            restaurants={restaurants} 
+            searchKeyword={''} 
+          />
+        {isLoading && (
+          <div className="view-page-loading">
+            <div className="spinner"></div>
+            Loading...
+          </div>
+        )}
+      </div>
     </div>
   );
 };

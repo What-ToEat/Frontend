@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import './ActionButtons.css';
 
 const ActionButtons = () => {
   const navigate = useNavigate();
@@ -14,9 +15,9 @@ const ActionButtons = () => {
   };
 
   return (
-    <div>
-      <button onClick={handleRecommendClick}>추천</button>
-      <button onClick={handleVoteClick}>함께 고르기</button>
+    <div className='action-button-container'>
+      <button className="action-button" onClick={handleRecommendClick}>추천</button>
+      <button className="action-button" onClick={handleVoteClick}>함께 고르기</button>
     </div>
   );
 }
