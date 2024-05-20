@@ -3,7 +3,7 @@ import Tag from '../Tag/Tag';
 import './RestaurantCard.css';
 
 const RestaurantCard = ({ name, thumbnail, tags }) => {
-	const truncatedName = name.length > 13 ? `${name.slice(0, 12)}...` : name;
+	const truncatedName = name.length > 11 ? `${name.slice(0, 10)}...` : name;
 
 	return (
     <div className="card">

@@ -23,7 +23,7 @@
   color: #ffffff;
 	border-radius: 10px;
 	border: 0;
-	padding: 1px 1px;
+  border: 1px solid #F77248;
 }
 
 .selectable-tag-content {

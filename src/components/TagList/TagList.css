@@ -17,6 +17,12 @@
   padding-bottom: 5px;
 }
 
+.tag-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .tag-list-title {
   color: #C15533;
   font-family: Inter;
@@ -25,6 +31,17 @@
   font-weight: 600;
   line-height: normal;
   margin-left: 3px;
+}
+
+.tag-list-search-button {
+  background-color: #F77248;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  margin-right: 3px;
 }
 
 .tag-list.collapsed {

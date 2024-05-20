@@ -4,7 +4,7 @@ import { isTagListExpandedState } from '../../recoil/state';
 import SelectableTag from '../Tag/SelectableTag';
 import './TagList.css';
 
-const TagList = ({ tags }) => {
+const TagList = ({ tags, onSearch }) => {
   const [isExpanded, setIsExpanded] = useRecoilState(isTagListExpandedState);
   const [maxHeight, setMaxHeight] = useState('109px');
   const tagListRef = useRef(null);
@@ -23,7 +23,10 @@ const TagList = ({ tags }) => {
 
   return (
     <div className='tag-list-wrapper'>
-      <span className='tag-list-title'># 태그</span>
+      <div className='tag-list-header'>
+        <span className='tag-list-title'># 태그</span>
+        <button className='tag-list-search-button' onClick={onSearch}>조회하기</button>
+      </div>
       <div className="tag-list-container">
         <div
           className={`tag-list ${isExpanded ? 'expanded' : 'collapsed'}`}
