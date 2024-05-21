@@ -41,7 +41,7 @@ const ButtonGroup = ({ selectedRegion, setSelectedRegion, selectedTag, setSelect
             <Button 
               key={index}
               label={tag.name}
-              isSelected={selectedTag === tag.tags}
+              isSelected={JSON.stringify(selectedTag) === JSON.stringify(tag.tags)}
               onClick={() => setSelectedTag(tag.tags)}
               imageSrc={tag.image}
             />

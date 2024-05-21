@@ -8,8 +8,8 @@ import ActionButtons from '../../components/ActionButtons/ActionButtons';
 import RestaurantView from '../../components/RestaurantView/RestaurantView';
 
 const HomePage = () => {
-  const [selectedRegion, setSelectedRegion] = useState(null);
-  const [selectedTag, setSelectedTag] = useState([]);
+  const [selectedRegion, setSelectedRegion] = useState('강남');
+  const [selectedTag, setSelectedTag] = useState(['분위기 좋은', '친구와 함께']);
   const [restaurants, setRestaurants] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
