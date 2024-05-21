@@ -39,14 +39,16 @@ const HomePage = () => {
 
   return (
     <div>
-      <Logo />
-      <ButtonGroup 
-        selectedRegion={selectedRegion}
-        setSelectedRegion={handleRegionClick}
-        selectedTag={selectedTag}
-        setSelectedTag={handleTagClick}
-      />
-      <QueryButton isEnabled={isQueryButtonEnabled} />
+      <div className='home-page-header-container'>
+        <Logo />
+        <ButtonGroup 
+          selectedRegion={selectedRegion}
+          setSelectedRegion={handleRegionClick}
+          selectedTag={selectedTag}
+          setSelectedTag={handleTagClick}
+        />
+        <QueryButton isEnabled={isQueryButtonEnabled} />
+      </div>
       <div className='home-page-content'>
         <div className='home-page-divider'></div>
         <ActionButtons />

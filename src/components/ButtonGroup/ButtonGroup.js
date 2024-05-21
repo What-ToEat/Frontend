@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from './Button';
+import './ButtonGroup.css';
 
 const regions = [
   { name: '강남', image: '/images/gangnam.png' },
@@ -10,37 +11,44 @@ const regions = [
 ];
 
 const tags = [
-  { name: '분위기 좋은 카페', image: '/images/cafe.png' },
-  { name: '맛있는 베이커리', image: '/images/bakery.png' },
-  { name: '데이트하기 좋은 레스토랑', image: '/images/date.png' },
-  { name: '오늘부터 다이어트', image: '/images/diet.png' },
-  { name: '달려 보자! 회식 장소', image: '/images/party.png' }
+  { name: '분위기\n좋은 카페', image: '/images/cafe.png' },
+  { name: '맛있는\n베이커리', image: '/images/bakery.png' },
+  { name: '로맨틱한\n레스토랑', image: '/images/date.png' },
+  { name: '오늘부터\n다이어트', image: '/images/diet.png' },
+  { name: '달려 보자!\n회식 장소', image: '/images/party.png' }
 ];
 
 const ButtonGroup = ({ selectedRegion, setSelectedRegion, selectedTag, setSelectedTag }) => {
   return (
-    <div>
-      <div>
-        {regions.map((region, index) => (
-          <Button 
-            key={index}
-            label={region.name}
-            isSelected={selectedRegion === region.name}
-            onClick={() => setSelectedRegion(region.name)}
-            imageSrc={region.image}
-          />
-        ))}
+    <div className='button-groups-container'>
+      <div className="button-groups-button-box">
+        <p className="button-groups-button-box-title">어디서 볼까?</p>
+        <div className="button-groups-button-box-grid">
+          {regions.map((region, index) => (
+            <Button 
+              key={index}
+              label={region.name}
+              isSelected={selectedRegion === region.name}
+              onClick={() => setSelectedRegion(region.name)}
+              imageSrc={region.image}
+            />
+          ))}
+        </div>
+
+        
       </div>
-      <div>
-        {tags.map((tag, index) => (
-          <Button 
-            key={index}
-            label={tag.name}
-            isSelected={selectedTag === tag.name}
-            onClick={() => setSelectedTag(tag.name)}
-            imageSrc={tag.image}
-          />
-        ))}
+      <div className="button-groups-button-box">
+        <div className="button-groups-button-box-grid">
+          {tags.map((tag, index) => (
+            <Button 
+              key={index}
+              label={tag.name}
+              isSelected={selectedTag === tag.name}
+              onClick={() => setSelectedTag(tag.name)}
+              imageSrc={tag.image}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

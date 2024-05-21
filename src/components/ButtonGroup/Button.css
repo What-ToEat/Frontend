@@ -18,10 +18,12 @@
 .home-button-content {
 	color: #373737;
 	font-family: Inter;
-	font-size: 14px;
+	font-size: 13px;
 	font-style: normal;
 	font-weight: 500;
 	line-height: normal;
 
-	margin: 3px;
+	margin-top: 3px;
+	text-align: center; /* 텍스트 중앙 정렬 */
+  white-space: pre-line; /* 개행 문자 처리 */
 }
