@@ -1,0 +1,27 @@
+.home-button-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.home-button {
+	width: 68px;
+	height: 68px;
+	flex-shrink: 0;
+	border-radius: 10px;
+	background-color: #FFF;;
+	cursor: pointer;
+  transition: border 0.3s ease;
+}
+
+.home-button-content {
+	color: #373737;
+	font-family: Inter;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+
+	margin: 3px;
+}
