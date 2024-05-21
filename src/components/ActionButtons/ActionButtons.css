@@ -37,6 +37,18 @@
 	line-height: normal;
 }
 
+@media (max-width: 420px) {
+  .action-button-content {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 370px) {
+  .action-button-content {
+    font-size: 15px;
+  }
+}
+
 .action-button-recommend .action-button-icon {
   background-image: url('/public/images/recommend.png');
 }
