@@ -29,14 +29,22 @@ const HomePage = () => {
       });
   }, []);
 
+  const handleRegionClick = (region) => {
+    setSelectedRegion(prevRegion => (prevRegion === region ? null : region));
+  };
+
+  const handleTagClick = (tag) => {
+    setSelectedTag(prevTag => (prevTag === tag ? null : tag));
+  };
+
   return (
     <div>
-      <Logo/>
+      <Logo />
       <ButtonGroup 
         selectedRegion={selectedRegion}
-        setSelectedRegion={setSelectedRegion}
+        setSelectedRegion={handleRegionClick}
         selectedTag={selectedTag}
-        setSelectedTag={setSelectedTag}
+        setSelectedTag={handleTagClick}
       />
       <QueryButton isEnabled={isQueryButtonEnabled} />
       <div className='home-page-content'>
