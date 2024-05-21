@@ -13,5 +13,11 @@
 	line-height: normal;
 
 	border: 0px;
+	transition: background 0.3s, color 0.3s; /* 부드러운 전환 효과 */
 }
 
+.home-query-button:disabled {
+	background: #E0E0E0;
+	color: #A0A0A0;
+	cursor: not-allowed;
+}
