@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './HomePage.css';
+import Logo from '../../components/Logo/Logo';
 import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
 import QueryButton from '../../components/QueryButton/QueryButton';
 import ActionButtons from '../../components/ActionButtons/ActionButtons';
@@ -30,7 +31,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <h1>뭐먹을까?</h1>
+      <Logo/>
       <ButtonGroup 
         selectedRegion={selectedRegion}
         setSelectedRegion={setSelectedRegion}

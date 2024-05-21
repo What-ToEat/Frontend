@@ -16,8 +16,14 @@ const ActionButtons = () => {
 
   return (
     <div className='action-button-container'>
-      <button className="action-button" onClick={handleRecommendClick}>추천</button>
-      <button className="action-button" onClick={handleVoteClick}>함께 고르기</button>
+      <button className="action-button action-button-recommend" onClick={handleRecommendClick}>
+        <div className="action-button-icon"></div>
+        <p className='action-button-content'>추&nbsp;&nbsp;&nbsp;천</p>
+      </button>
+      <button className="action-button action-button-vote" onClick={handleVoteClick}>
+        <div className="action-button-icon"></div>
+        <p className='action-button-content'>함께 고르기</p>
+      </button>
     </div>
   );
 }
