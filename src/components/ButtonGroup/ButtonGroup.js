@@ -11,11 +11,11 @@ const regions = [
 ];
 
 const tags = [
-  { name: '분위기\n좋은 카페', image: '/images/cafe.png' },
-  { name: '맛있는\n베이커리', image: '/images/bakery.png' },
-  { name: '로맨틱한\n레스토랑', image: '/images/date.png' },
-  { name: '오늘부터\n다이어트', image: '/images/diet.png' },
-  { name: '달려 보자!\n회식 장소', image: '/images/party.png' }
+  { name: '분위기\n좋은 카페', tags: ['분위기 좋은', '카페'], image: '/images/cafe.png' },
+  { name: '맛있는\n베이커리', tags: ['맛있는', '베이커리'], image: '/images/bakery.png' },
+  { name: '로맨틱한\n레스토랑', tags: ['분위기 좋은', '친구와 함께'], image: '/images/date.png' },
+  { name: '오늘부터\n다이어트', tags: ['신선한 요리', '깔끔하고 쾌적한'], image: '/images/diet.png' },
+  { name: '달려 보자!\n회식 장소', tags: ['가족 모임', '술집'], image: '/images/party.png' }
 ];
 
 const ButtonGroup = ({ selectedRegion, setSelectedRegion, selectedTag, setSelectedTag }) => {
@@ -34,8 +34,6 @@ const ButtonGroup = ({ selectedRegion, setSelectedRegion, selectedTag, setSelect
             />
           ))}
         </div>
-
-        
       </div>
       <div className="button-groups-button-box">
         <div className="button-groups-button-box-grid">
@@ -43,8 +41,8 @@ const ButtonGroup = ({ selectedRegion, setSelectedRegion, selectedTag, setSelect
             <Button 
               key={index}
               label={tag.name}
-              isSelected={selectedTag === tag.name}
-              onClick={() => setSelectedTag(tag.name)}
+              isSelected={selectedTag === tag.tags}
+              onClick={() => setSelectedTag(tag.tags)}
               imageSrc={tag.image}
             />
           ))}

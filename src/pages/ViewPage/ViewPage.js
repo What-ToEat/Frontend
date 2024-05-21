@@ -7,6 +7,11 @@ import TagNav from '../../components/TagNav/TagNav';
 import TagList from '../../components/TagList/TagList';
 import { useRecoilState } from 'recoil';
 import { selectedTagsState, selectedNavItemState } from '../../recoil/state';
+import { useLocation } from 'react-router-dom';
+
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+}
 
 const ViewPage = () => {
   const [tags, setTags] = useState([]);
@@ -18,38 +23,54 @@ const ViewPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const query = useQuery();
 
   useEffect(() => {
+    const initialNavItem = query.get('place') || '전체';
+    const initialTags = query.getAll('tags');
+
+    setSelectedNavItem(initialNavItem);
+    setSelectedTags(initialTags);
+
+    fetchTags();
+    fetchRestaurants(initialNavItem, initialTags, 1);
+  }, []);
+
+  const fetchTags = () => {
     fetch("http://43.202.161.19:8080/api/tags")
       .then(response => response.json())
       .then(({ data: { tags } }) => setTags(tags))
       .catch(error => console.error('Error fetching tags:', error));
-  }, []);
+  };
 
-  useEffect(() => {
-    let url = 'http://43.202.161.19:8080/api/restaurants/tag?page=1';
-    if (selectedNavItem !== '전체') {
-        url += `&place=${selectedNavItem}`;
+  const fetchRestaurants = (navItem, tags, page) => {
+    let url = `http://43.202.161.19:8080/api/restaurants/tag?page=${page}`;
+    if (navItem !== '전체') {
+      url += `&place=${encodeURIComponent(navItem)}`;
+    }
+    if (tags.length > 0) {
+      const tagParams = tags.map(tag => `tags=${encodeURIComponent(tag)}`).join('&');
+      url += `&${tagParams}`;
     }
 
     setIsLoading(true);
 
     fetch(url)
       .then(response => response.json())
-      .then(({data: {restaurants}}) => {
-        setRestaurants(restaurants);
-        setSelectedTags([]); // Reset selected tags
-        setSearchResults(null);
-        setSearchKeyword('');
-        setCurrentPage(1); // Reset current page
-        setHasMore(restaurants.length > 0); // Set hasMore based on initial data
+      .then(({ data: { restaurants } }) => {
+        if (page === 1) {
+          setRestaurants(restaurants);
+        } else {
+          setRestaurants(prevRestaurants => [...prevRestaurants, ...restaurants]);
+        }
+        setHasMore(restaurants.length > 0); // Set hasMore based on fetched data
         setIsLoading(false);
       })
       .catch(error => {
         console.error('Error fetching restaurants:', error);
         setIsLoading(false);
       });
-  }, [selectedNavItem]);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,29 +85,8 @@ const ViewPage = () => {
 
   const loadMoreRestaurants = () => {
     const nextPage = currentPage + 1;
-    let url = `http://43.202.161.19:8080/api/restaurants/tag?page=${nextPage}`;
-    if (selectedNavItem !== '전체') {
-      url += `&place=${encodeURIComponent(selectedNavItem)}`;
-    }
-    if (selectedTags.length > 0) {
-      const tagParams = selectedTags.map(tag => `tags=${encodeURIComponent(tag)}`).join('&');
-      url += `&${tagParams}`;
-    }
-
-    setIsLoading(true);
-
-    fetch(url)
-      .then(response => response.json())
-      .then(({ data: { restaurants: fetchedRestaurants } }) => {
-        setRestaurants(prevRestaurants => [...prevRestaurants, ...fetchedRestaurants]);
-        setCurrentPage(nextPage); // Update current page
-        setHasMore(fetchedRestaurants.length > 0); // Check if more data is available
-        setIsLoading(false);
-      })
-      .catch(error => {
-        console.error('Error fetching more restaurants:', error);
-        setIsLoading(false);
-      });
+    fetchRestaurants(selectedNavItem, selectedTags, nextPage);
+    setCurrentPage(nextPage); // Update current page
   };
 
   const handleSearch = (keyword) => {
@@ -111,30 +111,7 @@ const ViewPage = () => {
 
   const handleTagSearch = () => {
     setCurrentPage(1);
-    let url = 'http://43.202.161.19:8080/api/restaurants/tag?page=1';
-    if (selectedNavItem !== '전체') {
-      url += `&place=${encodeURIComponent(selectedNavItem)}`;
-    }
-    if (selectedTags.length > 0) {
-      const tagParams = selectedTags.map(tag => `tags=${encodeURIComponent(tag)}`).join('&');
-      url += `&${tagParams}`;
-    }
-
-    setIsLoading(true);
-
-    fetch(url)
-      .then(response => response.json())
-      .then(({ data: { restaurants: fetchedRestaurants } }) => {
-        setRestaurants(fetchedRestaurants);
-        setSearchResults(null);
-        setSearchKeyword('');
-        setIsLoading(false);
-        setHasMore(fetchedRestaurants.length > 0); // Set hasMore based on tag search results
-      })
-      .catch(error => {
-        console.error('Error fetching restaurants:', error);
-        setIsLoading(false);
-      });
+    fetchRestaurants(selectedNavItem, selectedTags, 1);
   };
 
   return (

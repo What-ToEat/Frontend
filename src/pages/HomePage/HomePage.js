@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
 import Logo from '../../components/Logo/Logo';
 import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
@@ -8,11 +9,11 @@ import RestaurantView from '../../components/RestaurantView/RestaurantView';
 
 const HomePage = () => {
   const [selectedRegion, setSelectedRegion] = useState(null);
-  const [selectedTag, setSelectedTag] = useState(null);
+  const [selectedTag, setSelectedTag] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const isQueryButtonEnabled = selectedRegion || selectedTag;
+  const isQueryButtonEnabled = selectedRegion || selectedTag.length > 0;
 
   useEffect(() => {
     setIsLoading(true);
@@ -34,7 +35,18 @@ const HomePage = () => {
   };
 
   const handleTagClick = (tag) => {
-    setSelectedTag(prevTag => (prevTag === tag ? null : tag));
+    setSelectedTag(prevTag => (prevTag === tag ? [] : tag));
+  };
+
+  const navigate = useNavigate();
+
+  const handleQueryClick = () => {
+    const queryParams = new URLSearchParams();
+    queryParams.append('place', selectedRegion || '전체');
+    
+    selectedTag.forEach(t => queryParams.append('tags', t));
+
+    navigate(`/view?${queryParams.toString()}`);
   };
 
   return (
@@ -47,7 +59,7 @@ const HomePage = () => {
           selectedTag={selectedTag}
           setSelectedTag={handleTagClick}
         />
-        <QueryButton isEnabled={isQueryButtonEnabled} />
+        <QueryButton isEnabled={isQueryButtonEnabled} handleQuery={handleQueryClick} />
       </div>
       <div className='home-page-content'>
         <div className='home-page-divider'></div>
