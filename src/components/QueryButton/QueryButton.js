@@ -1,9 +1,10 @@
 import React from 'react';
+import './QueryButton.css';
 
 const QueryButton = ({ isEnabled }) => {
   return (
-    <button disabled={!isEnabled}>
-      조회
+    <button className='home-query-button' disabled={!isEnabled}>
+      조&nbsp;&nbsp;&nbsp;회
     </button>
   );
 }
