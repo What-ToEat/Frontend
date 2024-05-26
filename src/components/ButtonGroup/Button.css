@@ -1,0 +1,37 @@
+.home-button-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.home-button {
+	width: 100%;
+	aspect-ratio: 1;
+	max-height: 68px;
+	max-width: 68px;
+	flex-shrink: 0;
+	border-radius: 10px;
+	background-color: #FFF;;
+	cursor: pointer;
+  transition: border 0.3s ease;
+}
+
+.home-button-content {
+	color: #373737;
+	font-family: Inter;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+
+	margin-top: 3px;
+	text-align: center; /* 텍스트 중앙 정렬 */
+  white-space: pre-line; /* 개행 문자 처리 */
+}
+
+@media (max-width: 345px) {
+  .home-button-content {
+    font-size: 11px;
+  }
+}
