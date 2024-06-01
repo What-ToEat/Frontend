@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useSwipeable } from 'react-swipeable';
 import Tag from '../Tag/Tag';
+import './RestaurantModal.css';
 
 const RestaurantModal = ({ show, handleClose, restaurant }) => {
   const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
+  const titleRef = useRef(null);
+  const [isOverflow, setIsOverflow] = useState(false);
 
   const handlePrevReview = () => {
     setCurrentReviewIndex((prevIndex) => 
@@ -25,38 +28,54 @@ const RestaurantModal = ({ show, handleClose, restaurant }) => {
     trackMouse: true
   });
 
+  useEffect(() => {
+    if (show) {
+      document.body.classList.add('modal-open');
+      if (titleRef.current) {
+        const parentWidth = titleRef.current.parentElement.clientWidth;
+        const titleWidth = titleRef.current.scrollWidth;
+        const isTitleOverflowing = titleWidth > parentWidth;
+        setIsOverflow(isTitleOverflowing);
+      }
+    } else {
+      document.body.classList.remove('modal-open');
+    }
+
+    return () => {
+      document.body.classList.remove('modal-open');
+    };
+  }, [show]);
+
   return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>{restaurant.name}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <img src={restaurant.thumbnail} alt={restaurant.name} style={{ width: '100%' }} />
-        <div style={{ maxHeight: '100px', overflowY: 'scroll', marginTop: '10px' }}>
+    <Modal show={show} onHide={handleClose} dialogClassName="restaurant-modal-custom" centered>
+      <Modal.Body {...handlers} className="restaurant-modal-body-custom">
+        <div
+          className="restaurant-modal-thumbnail"
+          style={{ backgroundImage: `url(${restaurant.thumbnail})` }}
+        />
+        <div className={`restaurant-modal-title-wrapper ${isOverflow ? '' : 'center'}`}>
+          <h4 
+            className={`restaurant-modal-title ${isOverflow ? 'animate' : ''}`} 
+            ref={titleRef}
+          >
+            {restaurant.name}
+          </h4>
+        </div>
+        <div className="restaurant-modal-tag-container">
           {restaurant.tags.map(tag => (
             <Tag key={tag.name} name={tag.name} category={tag.category} />
           ))}
         </div>
-        <div style={{ marginTop: '10px' }}>
-          <h5>리뷰</h5>
-          <div {...handlers} style={{ display: 'flex', alignItems: 'center' }}>
-            <Button variant="secondary" onClick={handlePrevReview} style={{ marginRight: '10px' }}>
-              이전
-            </Button>
-            <ul style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
-              <li>
-                {restaurant.reviews[currentReviewIndex].review} ({restaurant.reviews[currentReviewIndex].aiReview})
-              </li>
-            </ul>
-            <Button variant="secondary" onClick={handleNextReview} style={{ marginLeft: '10px' }}>
-              다음
-            </Button>
+        <hr className="restaurant-modal-divider" />
+        <div className="restaurant-modal-review-section">
+          <h5>방문자 리뷰</h5>
+          <div className="restaurant-modal-review-list">
+            <div className="restaurant-modal-review-item">
+              {restaurant.reviews[currentReviewIndex].review} ({restaurant.reviews[currentReviewIndex].aiReview})
+            </div>
           </div>
         </div>
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>닫기</Button>
-      </Modal.Footer>
     </Modal>
   );
 };
