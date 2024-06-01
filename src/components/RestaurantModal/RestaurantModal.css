@@ -20,7 +20,7 @@
 
 .restaurant-modal-title-wrapper {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   overflow: hidden;
   white-space: nowrap;
   margin-top: 10px;
@@ -41,7 +41,7 @@
 }
 
 .restaurant-modal-tag-container {
-  max-height: 15%;
+  max-height: 20%;
   overflow-y: auto;
   margin-top: 3px;
 }
@@ -81,6 +81,13 @@
   box-sizing: border-box;
   overflow-y: auto;
   height: 100%;
+
+  color: #000000;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
 }
 
 body.modal-open {
