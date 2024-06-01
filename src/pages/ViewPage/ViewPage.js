@@ -37,14 +37,14 @@ const ViewPage = () => {
   }, []);
 
   const fetchTags = () => {
-    fetch("http://43.202.161.19:8080/api/tags")
+    fetch("http://43.200.168.42:8080/api/tags")
       .then(response => response.json())
       .then(({ data: { tags } }) => setTags(tags))
       .catch(error => console.error('Error fetching tags:', error));
   };
 
   const fetchRestaurants = (navItem, tags, page) => {
-    let url = `http://43.202.161.19:8080/api/restaurants/tag?page=${page}`;
+    let url = `http://43.200.168.42:8080/api/restaurants/tag?page=${page}`;
     if (navItem !== '전체') {
       url += `&place=${encodeURIComponent(navItem)}`;
     }
@@ -90,7 +90,7 @@ const ViewPage = () => {
   };
 
   const handleSearch = (keyword) => {
-    const url = `http://43.202.161.19:8080/api/restaurants/keyword?keyword=${encodeURIComponent(keyword)}&page=1`;
+    const url = `http://43.200.168.42:8080/api/restaurants/keyword?keyword=${encodeURIComponent(keyword)}&page=1`;
 
     setIsLoading(true);
 

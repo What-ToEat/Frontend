@@ -17,7 +17,7 @@ const HomePage = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    const url = 'http://43.202.161.19:8080/api/restaurants/tag?page=1';
+    const url = 'http://43.200.168.42:8080/api/restaurants/tag?page=1';
     fetch(url)
       .then(response => response.json())
       .then(({ data: { restaurants } }) => {
