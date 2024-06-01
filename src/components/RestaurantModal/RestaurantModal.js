@@ -1,8 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import Tag from '../Tag/Tag';  // Tag 컴포넌트를 임포트합니다.
+import { useSwipeable } from 'react-swipeable';
+import Tag from '../Tag/Tag';
 
 const RestaurantModal = ({ show, handleClose, restaurant }) => {
+  const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
+
+  const handlePrevReview = () => {
+    setCurrentReviewIndex((prevIndex) => 
+      prevIndex > 0 ? prevIndex - 1 : restaurant.reviews.length - 1
+    );
+  };
+
+  const handleNextReview = () => {
+    setCurrentReviewIndex((prevIndex) => 
+      prevIndex < restaurant.reviews.length - 1 ? prevIndex + 1 : 0
+    );
+  };
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => handleNextReview(),
+    onSwipedRight: () => handlePrevReview(),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true
+  });
+
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -17,11 +39,19 @@ const RestaurantModal = ({ show, handleClose, restaurant }) => {
         </div>
         <div style={{ marginTop: '10px' }}>
           <h5>리뷰</h5>
-          <ul>
-            {restaurant.reviews.map((reviewObj, index) => (
-              <li key={index}>{reviewObj.review} ({reviewObj.aiReview})</li>
-            ))}
-          </ul>
+          <div {...handlers} style={{ display: 'flex', alignItems: 'center' }}>
+            <Button variant="secondary" onClick={handlePrevReview} style={{ marginRight: '10px' }}>
+              이전
+            </Button>
+            <ul style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
+              <li>
+                {restaurant.reviews[currentReviewIndex].review} ({restaurant.reviews[currentReviewIndex].aiReview})
+              </li>
+            </ul>
+            <Button variant="secondary" onClick={handleNextReview} style={{ marginLeft: '10px' }}>
+              다음
+            </Button>
+          </div>
         </div>
       </Modal.Body>
       <Modal.Footer>
