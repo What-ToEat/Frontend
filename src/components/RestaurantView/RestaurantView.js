@@ -5,16 +5,20 @@ import RestaurantCard from '../RestaurantCard/RestaurantCard';
 import RestaurantModal from '../RestaurantModal/RestaurantModal';
 import './RestaurantView.css';
 
-const RestaurantView = ({ restaurants, searchKeyword }) => {
+const RestaurantView = ({ restaurants, searchKeyword, onRestaurantClick }) => {
   const selectedTags = useRecoilValue(selectedTagsState);
   const [showModal, setShowModal] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
 
   const handleCardClick = async (restaurantId) => {
-    const response = await fetch(`http://43.200.168.42:8080/api/restaurants/${restaurantId}`);
-    const result = await response.json();
-    setSelectedRestaurant(result.data);
-    setShowModal(true);
+    if (onRestaurantClick) {
+      onRestaurantClick(restaurantId);
+    } else {
+      const response = await fetch(`http://43.200.168.42:8080/api/restaurants/${restaurantId}`);
+      const result = await response.json();
+      setSelectedRestaurant(result.data);
+      setShowModal(true);
+    }
   };
 
   const handleClose = () => setShowModal(false);
@@ -42,7 +46,7 @@ const RestaurantView = ({ restaurants, searchKeyword }) => {
           조회된 레스토랑이 없습니다.
         </div>
       )}
-      {selectedRestaurant && (
+      {selectedRestaurant && !onRestaurantClick && (
         <RestaurantModal 
           show={showModal} 
           handleClose={handleClose} 

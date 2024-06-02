@@ -5,7 +5,6 @@ import { selectedTagsState, selectedNavItemState } from '../../recoil/state';
 import TagNav from '../TagNav/TagNav';
 import TagList from '../TagList/TagList';
 import RestaurantView from '../RestaurantView/RestaurantView';
-import VoteRestaurantGrid from '../VoteRestaurantGrid/VoteRestaurantGrid';
 import './VoteRestaurantModal.css';
 
 const VoteRestaurantModal = ({ show, onHide, onAdd }) => {
@@ -14,7 +13,6 @@ const VoteRestaurantModal = ({ show, onHide, onAdd }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [restaurants, setRestaurants] = useState([]);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
-  const [gridRestaurants, setGridRestaurants] = useState([]);
 
   const [selectedRegion, setSelectedRegion] = useRecoilState(selectedNavItemState);
   const [selectedTags, setSelectedTags] = useRecoilState(selectedTagsState);
@@ -34,8 +32,6 @@ const VoteRestaurantModal = ({ show, onHide, onAdd }) => {
 
   const handleSearch = () => {
     setCurrentPage(1);
-    console.log('selectedRegion:', selectedRegion);
-    console.log('selectedTags:', selectedTags);
     fetchRestaurants(selectedRegion, selectedTags, 1);
     setStep(2);
   };
@@ -50,12 +46,9 @@ const VoteRestaurantModal = ({ show, onHide, onAdd }) => {
       url += `&${tagParams}`;
     }
 
-    console.log('url:', url);
-
     fetch(url)
       .then(response => response.json())
       .then(({ data: { restaurants } }) => {
-        console.log('restaurants:', restaurants);
         setRestaurants(restaurants);
       })
       .catch(error => {
@@ -63,15 +56,30 @@ const VoteRestaurantModal = ({ show, onHide, onAdd }) => {
       });
   };
 
-  const handleRestaurantSelect = (restaurant) => {
+  const handleRestaurantSelect = (restaurantId) => {
+    const restaurant = restaurants.find(r => r.restaurantId === restaurantId);
     setSelectedRestaurant(restaurant);
   };
 
   const handleAddRestaurant = () => {
     if (selectedRestaurant) {
-      setGridRestaurants([...gridRestaurants, selectedRestaurant]);
+      onAdd(selectedRestaurant);
       setSelectedRestaurant(null);
       setStep(1);
+    }
+  };
+
+  const handleNextPage = () => {
+    const nextPage = currentPage + 1;
+    setCurrentPage(nextPage);
+    fetchRestaurants(selectedRegion, selectedTags, nextPage);
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      const previousPage = currentPage - 1;
+      setCurrentPage(previousPage);
+      fetchRestaurants(selectedRegion, selectedTags, previousPage);
     }
   };
 
@@ -91,15 +99,23 @@ const VoteRestaurantModal = ({ show, onHide, onAdd }) => {
           <RestaurantView
             restaurants={restaurants}
             searchKeyword={''}
-            onRestaurantSelect={handleRestaurantSelect}
+            onRestaurantClick={handleRestaurantSelect}
           />
         )}
       </Modal.Body>
       <Modal.Footer>
         {step === 2 && (
-          <Button variant="secondary" onClick={() => setStep(1)}>
-            이전
-          </Button>
+          <>
+            <Button variant="secondary" onClick={handlePreviousPage} disabled={currentPage === 1}>
+              이전 페이지
+            </Button>
+            <Button variant="secondary" onClick={() => setStep(1)}>
+              이전
+            </Button>
+            <Button variant="secondary" onClick={handleNextPage}>
+              다음 페이지
+            </Button>
+          </>
         )}
         {step === 1 ? (
           <Button variant="primary" onClick={handleSearch}>
@@ -114,7 +130,6 @@ const VoteRestaurantModal = ({ show, onHide, onAdd }) => {
           닫기
         </Button>
       </Modal.Footer>
-      <VoteRestaurantGrid restaurants={gridRestaurants} onAddClick={() => setStep(1)} />
     </Modal>
   );
 };

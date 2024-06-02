@@ -9,7 +9,9 @@ const VotePage = () => {
   const [showModal, setShowModal] = useState(false);
 
   const addRestaurant = (restaurant) => {
-    setRestaurants([...restaurants, restaurant]);
+    if (!restaurants.some(r => r.restaurantId === restaurant.restaurantId)) {
+      setRestaurants([...restaurants, restaurant]);
+    }
     setShowModal(false);
   };
 
