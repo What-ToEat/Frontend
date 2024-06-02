@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import { useRecoilState } from 'recoil';
+import { selectedTagsState, selectedNavItemState } from '../../recoil/state';
 import TagNav from '../TagNav/TagNav';
 import TagList from '../TagList/TagList';
 import RestaurantView from '../RestaurantView/RestaurantView';
@@ -9,14 +11,18 @@ import './VoteRestaurantModal.css';
 const VoteRestaurantModal = ({ show, onHide, onAdd }) => {
   const [tags, setTags] = useState([]);
   const [step, setStep] = useState(1);
-  const [selectedTags, setSelectedTags] = useState([]);
-  const [selectedRegion, setSelectedRegion] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
   const [restaurants, setRestaurants] = useState([]);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [gridRestaurants, setGridRestaurants] = useState([]);
 
-	useEffect(() => {
+  const [selectedRegion, setSelectedRegion] = useRecoilState(selectedNavItemState);
+  const [selectedTags, setSelectedTags] = useRecoilState(selectedTagsState);
+
+  useEffect(() => {
     fetchTags();
+    setSelectedRegion('전체');
+    setSelectedTags([]);
   }, []);
 
   const fetchTags = () => {
@@ -26,20 +32,35 @@ const VoteRestaurantModal = ({ show, onHide, onAdd }) => {
       .catch(error => console.error('Error fetching tags:', error));
   };
 
-  const handleRegionSelect = (region) => {
-    setSelectedRegion(region);
-  };
-
-  const handleTagSelect = (tags) => {
-    setSelectedTags(tags);
-  };
-
-  const handleSearch = async () => {
-    // Replace with your API call
-    const response = await fetch(`http://yourapi.com/restaurants?region=${selectedRegion}&tags=${selectedTags.join(',')}`);
-    const result = await response.json();
-    setRestaurants(result.data);
+  const handleSearch = () => {
+    setCurrentPage(1);
+    console.log('selectedRegion:', selectedRegion);
+    console.log('selectedTags:', selectedTags);
+    fetchRestaurants(selectedRegion, selectedTags, 1);
     setStep(2);
+  };
+
+  const fetchRestaurants = (navItem, tags, page) => {
+    let url = `http://43.200.168.42:8080/api/restaurants/tag?page=${page}`;
+    if (navItem !== '전체') {
+      url += `&place=${encodeURIComponent(navItem)}`;
+    }
+    if (tags.length > 0) {
+      const tagParams = tags.map(tag => `tags=${encodeURIComponent(tag)}`).join('&');
+      url += `&${tagParams}`;
+    }
+
+    console.log('url:', url);
+
+    fetch(url)
+      .then(response => response.json())
+      .then(({ data: { restaurants } }) => {
+        console.log('restaurants:', restaurants);
+        setRestaurants(restaurants);
+      })
+      .catch(error => {
+        console.error('Error fetching restaurants:', error);
+      });
   };
 
   const handleRestaurantSelect = (restaurant) => {
@@ -62,14 +83,14 @@ const VoteRestaurantModal = ({ show, onHide, onAdd }) => {
       <Modal.Body>
         {step === 1 && (
           <>
-            <TagNav onRegionSelect={handleRegionSelect} />
-            <TagList tags={tags} onSearch={handleSearch} onTagSelect={handleTagSelect} canExpand={ false } />
+            <TagNav onRegionSelect={setSelectedRegion} />
+            <TagList tags={tags} onSearch={handleSearch} canExpand={false} />
           </>
         )}
         {step === 2 && (
           <RestaurantView
             restaurants={restaurants}
-            searchKeyword={`${selectedRegion}, ${selectedTags.join(', ')}`}
+            searchKeyword={''}
             onRestaurantSelect={handleRestaurantSelect}
           />
         )}
