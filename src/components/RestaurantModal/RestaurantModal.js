@@ -113,7 +113,6 @@ const RestaurantModal = ({ show, handleClose, restaurant }) => {
                       <br />
                     </React.Fragment>
                   ))}
-                  <p>({review.aiReview})</p>
                 </div>
               ))}
             </div>
