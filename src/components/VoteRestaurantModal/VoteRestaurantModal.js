@@ -63,7 +63,7 @@ const VoteRestaurantModal = ({ show, onHide, onAdd }) => {
         {step === 1 && (
           <>
             <TagNav onRegionSelect={handleRegionSelect} />
-            <TagList tags={tags} onSearch={handleSearch} onTagSelect={handleTagSelect} />
+            <TagList tags={tags} onSearch={handleSearch} onTagSelect={handleTagSelect} canExpand={ false } />
           </>
         )}
         {step === 2 && (
