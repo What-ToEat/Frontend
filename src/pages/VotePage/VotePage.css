@@ -12,10 +12,13 @@
 }
 
 .vote-page-body {
-  margin-top: 86px; /* Adjust this value to match the height of VoteHeader */
-  margin-bottom: 60px; /* Adjust this value to match the height of VoteSubmitButton */
+  margin-top: 77px; /* Adjust this value to match the height of VoteHeader */
+  margin-bottom: 95px; /* Adjust this value to match the height of VoteSubmitButton */
   overflow-y: auto;
   flex-grow: 1;
+
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .vote-page-footer {
@@ -23,4 +26,14 @@
   bottom: 0;
   width: 100%;
   z-index: 10;
+  height: 105px;
+
+  margin-bottom: -10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 12px;
+
+  border-radius: 10px;
+  border: 2px solid #F77248;
+  background: #FFF;
 }
