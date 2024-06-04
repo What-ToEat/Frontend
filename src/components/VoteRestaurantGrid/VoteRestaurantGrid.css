@@ -1,3 +1,37 @@
+.vote-restaurant-grid-wrapper {
+	position: relative;
+	margin-top: 9px;
+	margin-bottom: 9px;
+}
+
+.vote-restaurant-grid-header {
+	border-radius: 10px;
+	border: 2px solid #F77248;
+	background: #FFF;
+
+	width: 142.498px;
+	height: 55.839px;
+	flex-shrink: 0;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	position: absolute;
+	left: 10px;
+	z-index: 1;
+}
+
+.vote-restaurant-grid-header > p {
+	color: #C15533;
+	font-family: Inter;
+	font-size: 15px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	margin-top: -4px;
+}
+
 .vote-restaurant-grid-container {
 	width: 100%;
 
@@ -9,6 +43,11 @@
 
 	margin-top: 9px;
 	margin-bottom: 9px;
+
+	position: absolute;
+	top: 25px;
+	display: flex;
+	z-index: 2;
 }
 
 .vote-restaurant-grid {
