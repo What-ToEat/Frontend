@@ -1,0 +1,25 @@
+.vote-restaurant-grid-container {
+	width: 100%;
+
+	border-radius: 10px;
+	border: 2px solid #F77248;
+	background: #F6F6F6;
+
+	padding: 10px;
+
+	margin-top: 9px;
+	margin-bottom: 9px;
+}
+
+.vote-restaurant-grid {
+	display: grid;
+  grid-template-columns: repeat(2, calc(50% - 3.5px));
+  gap: 7px; /* 카드 간의 간격을 조정합니다 */
+  width: 100%; /* 그리드가 화면 너비를 초과하지 않도록 설정 */
+  box-sizing: border-box; /* 패딩과 보더를 전체 크기에 포함 */
+}
+
+.vote-restaurant-grid-item {
+	display: flex;
+	justify-content: center;
+}
