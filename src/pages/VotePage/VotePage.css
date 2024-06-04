@@ -1,8 +1,26 @@
 .vote-page {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.vote-page-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
 }
 
 .vote-page-body {
-  padding: 9px 15px;
+  margin-top: 86px; /* Adjust this value to match the height of VoteHeader */
+  margin-bottom: 60px; /* Adjust this value to match the height of VoteSubmitButton */
+  overflow-y: auto;
+  flex-grow: 1;
+}
 
+.vote-page-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
 }

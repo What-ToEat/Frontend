@@ -45,13 +45,17 @@ const VotePage = () => {
 
   return (
     <div className="vote-page">
-      <VoteHeader content="투표 작성" />
+      <div className="vote-page-header">
+        <VoteHeader content="투표 작성" />
+      </div>
       <div className="vote-page-body">
         <VoteForm ref={formRef} restaurants={restaurants} onSubmit={handleSubmit} />
         <VoteRestaurantGrid restaurants={restaurants} onAddClick={() => setShowModal(true)} />
       </div>
+      <div className="vote-page-footer">
+        <VoteSubmitButton onClick={() => formRef.current.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }))} />
+      </div>
       <VoteRestaurantModal show={showModal} onHide={() => setShowModal(false)} onAdd={addRestaurant} />
-      <VoteSubmitButton onClick={() => formRef.current.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }))} />
     </div>
   );
 };
