@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import VoteForm from '../../components/VoteForm/VoteForm';
 import VoteRestaurantGrid from '../../components/VoteRestaurantGrid/VoteRestaurantGrid';
 import VoteRestaurantModal from '../../components/VoteRestaurantModal/VoteRestaurantModal';
+import VoteHeader from '../../components/VoteHeader/VoteHeader';
 import './VotePage.css';
 
 const VotePage = () => {
@@ -17,8 +18,7 @@ const VotePage = () => {
 
   return (
     <div className="vote-page">
-      <h2>뭐먹을까?</h2>
-      <p>뭐먹을까 투표 페이지입니다.</p>
+      <VoteHeader content="투표 작성" />
       <VoteForm restaurants={restaurants} />
       <VoteRestaurantGrid restaurants={restaurants} onAddClick={() => setShowModal(true)} />
       <VoteRestaurantModal show={showModal} onHide={() => setShowModal(false)} onAdd={addRestaurant} />
