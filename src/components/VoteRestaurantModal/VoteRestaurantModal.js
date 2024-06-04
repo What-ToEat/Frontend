@@ -71,8 +71,8 @@ const VoteRestaurantModal = ({ show, onHide, onAdd }) => {
 
   const handleNextPage = () => {
     const nextPage = currentPage + 1;
-    setCurrentPage(nextPage);
     fetchRestaurants(selectedRegion, selectedTags, nextPage);
+    setCurrentPage(nextPage);
   };
 
   const handlePreviousPage = () => {
@@ -107,7 +107,7 @@ const VoteRestaurantModal = ({ show, onHide, onAdd }) => {
                 이전 페이지
               </Button>
               <p className='vote-restaurant-modal-current-page'>{currentPage} 페이지</p>
-              <Button variant="secondary" onClick={handleNextPage}>
+              <Button variant="secondary" onClick={handleNextPage} disabled={restaurants.length === 0}>
                 다음 페이지
               </Button>
             </div>
