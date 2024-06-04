@@ -84,9 +84,9 @@ const VoteRestaurantModal = ({ show, onHide, onAdd }) => {
   };
 
   return (
-    <Modal show={show} onHide={onHide}>
+    <Modal show={show} onHide={onHide} className="vote-restaurant-modal">
       <Modal.Header closeButton>
-        <Modal.Title>식당 추천 받기</Modal.Title>
+        <Modal.Title>투표 항목 추가하기</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {step === 1 && (
@@ -96,39 +96,40 @@ const VoteRestaurantModal = ({ show, onHide, onAdd }) => {
           </>
         )}
         {step === 2 && (
-          <RestaurantView
-            restaurants={restaurants}
-            searchKeyword={''}
-            onRestaurantClick={handleRestaurantSelect}
-          />
+          <>
+            <RestaurantView
+              restaurants={restaurants}
+              searchKeyword={''}
+              onRestaurantClick={handleRestaurantSelect}
+            />
+            <div className="vote-restaurant-modal-pagination">
+              <Button variant="secondary" onClick={handlePreviousPage} disabled={currentPage === 1}>
+                이전 페이지
+              </Button>
+              <p className='vote-restaurant-modal-current-page'>{currentPage} 페이지</p>
+              <Button variant="secondary" onClick={handleNextPage}>
+                다음 페이지
+              </Button>
+            </div>
+          </>
         )}
       </Modal.Body>
       <Modal.Footer>
+        {step === 1 && (
+          <Button variant="primary" onClick={handleSearch}>
+            조회하기
+          </Button>
+        )}
         {step === 2 && (
           <>
-            <Button variant="secondary" onClick={handlePreviousPage} disabled={currentPage === 1}>
-              이전 페이지
-            </Button>
             <Button variant="secondary" onClick={() => setStep(1)}>
               이전
             </Button>
-            <Button variant="secondary" onClick={handleNextPage}>
-              다음 페이지
+            <Button variant="primary" onClick={handleAddRestaurant}>
+              추가하기
             </Button>
           </>
         )}
-        {step === 1 ? (
-          <Button variant="primary" onClick={handleSearch}>
-            다음
-          </Button>
-        ) : (
-          <Button variant="primary" onClick={handleAddRestaurant}>
-            추가하기
-          </Button>
-        )}
-        <Button variant="secondary" onClick={onHide}>
-          닫기
-        </Button>
       </Modal.Footer>
     </Modal>
   );
