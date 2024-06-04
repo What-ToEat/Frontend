@@ -1,46 +1,38 @@
-import React, { useState } from 'react';
+import React, { forwardRef, useState } from 'react';
+import './VoteForm.css';
 
-const VoteForm = ({ restaurants }) => {
-  const [title, setTitle] = useState('');
+const VoteForm = forwardRef(({ restaurants, onSubmit }, ref) => {
+  const [title, setTitle] = useState('오늘 뭐 먹지?');
   const [expirationTime, setExpirationTime] = useState(1); // 초기 값 1시간
   const [email, setEmail] = useState('');
   const [allowDuplicateVote, setAllowDuplicateVote] = useState(false);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const response = await fetch('http://43.200.168.42/api/vote', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        title,
-        email,
-        allowDuplicateVote,
-        expirationTime,
-        restaurants: restaurants.map(r => r.restaurantId), // 실제 레스토랑 ID 리스트로 교체해야 합니다.
-      }),
-    });
-
-    const responseData = await response.json();
-    console.log(responseData);
-
-    if (response.ok) {
-      alert('투표가 생성되었습니다!');
-    } else {
-      alert('투표 생성에 실패했습니다.');
-    }
+    onSubmit({ title, email, allowDuplicateVote, expirationTime, restaurants });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>투표 제목</label>
-        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
+    <form className="vote-form-container" ref={ref} onSubmit={handleSubmit}>
+      <div className="vote-form-group">
+        <label className="vote-form-label">투표 제목</label>
+        <input
+          className="vote-form-input"
+          type="text"
+          placeholder='투표 제목을 입력하세요'
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
       </div>
-      <div>
-        <label>투표 만료 시간</label>
-        <select value={expirationTime} onChange={(e) => setExpirationTime(Number(e.target.value))} required>
+      <div className="vote-form-group">
+        <label className="vote-form-label">투표 만료 시간</label>
+        <select
+          className="vote-form-select"
+          value={expirationTime}
+          onChange={(e) => setExpirationTime(Number(e.target.value))}
+          required
+        >
           <option value={1}>1시간</option>
           <option value={3}>3시간</option>
           <option value={6}>6시간</option>
@@ -48,17 +40,31 @@ const VoteForm = ({ restaurants }) => {
           <option value={24}>24시간</option>
         </select>
       </div>
-      <div>
-        <label>이메일</label>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+      <div className="vote-form-group">
+        <label className="vote-form-label">이메일</label>
+        <input
+          className="vote-form-input"
+          type="email"
+          placeholder="name@example.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
       </div>
-      <div>
-        <label>중복 투표</label>
-        <input type="checkbox" checked={allowDuplicateVote} onChange={(e) => setAllowDuplicateVote(e.target.checked)} />
+      
+      <div className="vote-form-group">
+        <label className="vote-form-label">
+          <input
+            className="vote-form-checkbox"
+            type="checkbox"
+            checked={allowDuplicateVote}
+            onChange={(e) => setAllowDuplicateVote(e.target.checked)}
+          />
+          중복 투표 허용
+        </label>
       </div>
-      <button type="submit">투표 시작하기</button>
     </form>
   );
-};
+});
 
 export default VoteForm;

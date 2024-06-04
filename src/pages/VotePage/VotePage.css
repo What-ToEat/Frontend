@@ -1,3 +1,8 @@
 .vote-page {
   text-align: center;
 }
+
+.vote-page-body {
+  padding: 9px 15px;
+
+}

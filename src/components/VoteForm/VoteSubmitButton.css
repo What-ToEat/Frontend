@@ -1,0 +1,15 @@
+.vote-submit-button {
+  background-color: #ff7f50; /* Coral background color */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 20px auto;
+  display: block;
+}
+
+.vote-submit-button:hover {
+  background-color: #ff6347; /* Darker coral on hover */
+}
