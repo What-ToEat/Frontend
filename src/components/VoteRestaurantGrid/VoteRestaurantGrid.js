@@ -18,8 +18,8 @@ const VoteRestaurantGrid = ({ restaurants, onAddClick }) => {
           <div className="vote-restaurant-grid-item" onClick={onAddClick}>
             <svg xmlns="http://www.w3.org/2000/svg" width="186" height="177" viewBox="0 0 186 177" fill="none">
               <rect x="0.5" y="0.5" width="185" height="176" rx="4.5" fill="white" stroke="#C3C3C3"/>
-              <line x1="79" y1="89" x2="107" y2="89" stroke="#C3C3C3" stroke-width="2"/>
-              <path d="M93 75L93 103" stroke="#C3C3C3" stroke-width="2"/>
+              <line x1="79" y1="89" x2="107" y2="89" stroke="#C3C3C3" strokeWidth="2"/>
+              <path d="M93 75L93 103" stroke="#C3C3C3" strokeWidth="2"/>
             </svg>
           </div>
         </div>

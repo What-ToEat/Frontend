@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import VoteForm from '../../components/VoteForm/VoteForm';
 import VoteRestaurantGrid from '../../components/VoteRestaurantGrid/VoteRestaurantGrid';
 import VoteRestaurantModal from '../../components/VoteRestaurantModal/VoteRestaurantModal';
@@ -10,6 +11,8 @@ const VotePage = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const formRef = useRef(null);
+  const navigate = useNavigate();
+
 
   const addRestaurant = (restaurant) => {
     if (!restaurants.some(r => r.restaurantId === restaurant.restaurantId)) {
@@ -19,6 +22,7 @@ const VotePage = () => {
   };
 
   const handleSubmit = async ({ title, email, allowDuplicateVote, expirationTime, restaurants }) => {
+
     const response = await fetch('http://43.200.168.42/api/vote', {
       method: 'POST',
       headers: {
@@ -38,6 +42,7 @@ const VotePage = () => {
 
     if (response.ok) {
       alert('투표가 생성되었습니다!');
+      navigate('/');
     } else {
       alert('투표 생성에 실패했습니다.');
     }
