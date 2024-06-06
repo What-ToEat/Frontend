@@ -13,7 +13,6 @@ const VotePage = () => {
   const formRef = useRef(null);
   const navigate = useNavigate();
 
-
   const addRestaurant = (restaurant) => {
     if (!restaurants.some(r => r.restaurantId === restaurant.restaurantId)) {
       setRestaurants([...restaurants, restaurant]);
@@ -58,7 +57,10 @@ const VotePage = () => {
         <VoteRestaurantGrid restaurants={restaurants} onAddClick={() => setShowModal(true)} />
       </div>
       <div className="vote-page-footer">
-        <VoteSubmitButton onClick={() => formRef.current.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }))} />
+        <VoteSubmitButton
+          onClick={() => formRef.current.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }))}
+          disabled={restaurants.length === 0}
+        />
       </div>
       <VoteRestaurantModal show={showModal} onHide={() => setShowModal(false)} onAdd={addRestaurant} />
     </div>
