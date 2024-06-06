@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './VoteDetailPage.css';
 import CopyLink from '../../components/CopyLink/CopyLink';
+import NicknameModal from '../../components/NicknameModal/NicknameModal';
 
 const VoteDetailPage = () => {
   const { hash } = useParams();
   const [voteDetail, setVoteDetail] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [nickname, setNickname] = useState('');
+  const [showModal, setShowModal] = useState(true);
 
   useEffect(() => {
     const fetchVoteDetail = async () => {
@@ -27,7 +30,19 @@ const VoteDetailPage = () => {
     };
 
     fetchVoteDetail();
+
+    const storedNickname = localStorage.getItem('nickname');
+    if (storedNickname) {
+      setNickname(storedNickname);
+      setShowModal(false);
+    }
   }, [hash]);
+
+  const handleNicknameSubmit = (nickname) => {
+    setNickname(nickname);
+    localStorage.setItem('nickname', nickname);
+    setShowModal(false);
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -39,8 +54,10 @@ const VoteDetailPage = () => {
 
   return (
     <div className="vote-detail-page">
+      <NicknameModal show={showModal} onSubmit={handleNicknameSubmit} />
       <h1>{voteDetail.title}</h1>
       <CopyLink />
+      <p>Nickname: {nickname}</p>
       <p>Vote Hash: {voteDetail.voteHash}</p>
       <p>Expires At: {new Date(voteDetail.expireAt).toLocaleString()}</p>
       <p>Allow Duplicate Vote: {voteDetail.allowDuplicateVote ? 'Yes' : 'No'}</p>
