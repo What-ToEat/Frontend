@@ -1,0 +1,12 @@
+.vote-detail-page {
+  padding: 20px;
+}
+
+.vote-detail-page h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.vote-detail-page p {
+  font-size: 1.2em;
+}
