@@ -1,5 +1,5 @@
 .vote-restaurant-modal .modal-dialog {
-	width: 95%;
+  width: 95%;
   height: calc(100% - 60px); /* Ensures the modal height adjusts properly */
   display: flex;
   align-items: center;
@@ -18,8 +18,8 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-	padding: 5px;
-	padding-bottom: 9px;
+  padding: 5px;
+  padding-bottom: 9px;
 }
 
 .vote-restaurant-modal .modal-footer {
@@ -30,18 +30,38 @@
 .vote-restaurant-modal .vote-restaurant-modal-pagination {
   display: flex;
   justify-content: space-between;
-	align-items: center;
+  align-items: center;
   margin-top: 10px;
 }
 
 .vote-restaurant-modal-current-page {
-	color: #373737;
-	text-align: center;
-	font-family: Inter;
-	font-size: 14px;
-	font-style: normal;
-	font-weight: 500;
-	line-height: normal;
+  color: #373737;
+  text-align: center;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0;
+}
 
-	margin: 0;
+.vote-restaurant-modal .modal-footer .right-aligned {
+  margin-left: auto;
+}
+
+.vote-restaurant-modal-button {
+  background-color: #F77248;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  margin-right: 3px;
+}
+
+.vote-restaurant-modal-button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
 }

@@ -5,7 +5,7 @@ import RestaurantCard from '../RestaurantCard/RestaurantCard';
 import RestaurantModal from '../RestaurantModal/RestaurantModal';
 import './RestaurantView.css';
 
-const RestaurantView = ({ restaurants, searchKeyword, onRestaurantClick }) => {
+const RestaurantView = ({ restaurants, searchKeyword, onRestaurantClick, selectedRestaurantId }) => {
   const selectedTags = useRecoilValue(selectedTagsState);
   const [showModal, setShowModal] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
@@ -21,6 +21,8 @@ const RestaurantView = ({ restaurants, searchKeyword, onRestaurantClick }) => {
     }
   };
 
+  console.log('selectedRestaurantId:', selectedRestaurantId);
+
   const handleClose = () => setShowModal(false);
 
   return (
@@ -30,13 +32,17 @@ const RestaurantView = ({ restaurants, searchKeyword, onRestaurantClick }) => {
       </div>
       {restaurants.length > 0 ? (
         <div className="restaurant-grid">
-          {restaurants.map((restaurant, index) => (
-            <div className="restaurant-grid-item" key={index}>
-              <RestaurantCard 
-                name={restaurant.name} 
-                thumbnail={restaurant.thumbnail} 
+          {restaurants.map((restaurant) => (
+            <div
+              className="restaurant-grid-item"
+              key={restaurant.restaurantId}
+              onClick={() => handleCardClick(restaurant.restaurantId)}
+            >
+              <RestaurantCard
+                name={restaurant.name}
+                thumbnail={restaurant.thumbnail}
                 tags={restaurant.tags}
-                onClick={() => handleCardClick(restaurant.restaurantId)}
+                isSelected={selectedRestaurantId === restaurant.restaurantId}
               />
             </div>
           ))}
@@ -47,10 +53,10 @@ const RestaurantView = ({ restaurants, searchKeyword, onRestaurantClick }) => {
         </div>
       )}
       {selectedRestaurant && !onRestaurantClick && (
-        <RestaurantModal 
-          show={showModal} 
-          handleClose={handleClose} 
-          restaurant={selectedRestaurant} 
+        <RestaurantModal
+          show={showModal}
+          handleClose={handleClose}
+          restaurant={selectedRestaurant}
         />
       )}
     </div>

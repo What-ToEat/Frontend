@@ -21,7 +21,7 @@ const VoteRestaurantModal = ({ show, onHide, onAdd }) => {
     fetchTags();
     setSelectedRegion('전체');
     setSelectedTags([]);
-  }, []);
+  }, [setSelectedRegion, setSelectedTags]);
 
   const fetchTags = () => {
     fetch("http://43.200.168.42:8080/api/tags")
@@ -101,13 +101,14 @@ const VoteRestaurantModal = ({ show, onHide, onAdd }) => {
               restaurants={restaurants}
               searchKeyword={''}
               onRestaurantClick={handleRestaurantSelect}
+              selectedRestaurantId={selectedRestaurant ? selectedRestaurant.restaurantId : undefined}
             />
             <div className="vote-restaurant-modal-pagination">
-              <Button variant="secondary" onClick={handlePreviousPage} disabled={currentPage === 1}>
+              <Button variant="secondary" className='vote-restaurant-modal-button' onClick={handlePreviousPage} disabled={currentPage === 1}>
                 이전 페이지
               </Button>
               <p className='vote-restaurant-modal-current-page'>{currentPage} 페이지</p>
-              <Button variant="secondary" onClick={handleNextPage} disabled={restaurants.length === 0}>
+              <Button variant="secondary" className='vote-restaurant-modal-button' onClick={handleNextPage} disabled={restaurants.length === 0}>
                 다음 페이지
               </Button>
             </div>
@@ -116,16 +117,16 @@ const VoteRestaurantModal = ({ show, onHide, onAdd }) => {
       </Modal.Body>
       <Modal.Footer>
         {step === 1 && (
-          <Button variant="primary" onClick={handleSearch}>
+          <Button variant="primary" className='vote-restaurant-modal-button right-aligned' onClick={handleSearch}>
             조회하기
           </Button>
         )}
         {step === 2 && (
           <>
-            <Button variant="secondary" onClick={() => setStep(1)}>
+            <Button variant="secondary" className='vote-restaurant-modal-button' onClick={() => setStep(1)}>
               이전
             </Button>
-            <Button variant="primary" onClick={handleAddRestaurant}>
+            <Button variant="primary" className='vote-restaurant-modal-button' onClick={handleAddRestaurant} disabled={!selectedRestaurant}>
               추가하기
             </Button>
           </>
