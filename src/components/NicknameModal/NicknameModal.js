@@ -10,7 +10,7 @@ const NicknameModal = ({ show, onSubmit }) => {
 
   const handleSubmit = () => {
     if (nickname.trim()) {
-      onSubmit(nickname);
+      onSubmit(nickname, 1);
     }
   };
 
