@@ -6,7 +6,8 @@ import { useParams } from 'react-router-dom';
 const CopyLink = () => {
   const { hash } = useParams();
   const [copied, setCopied] = useState(false);
-  const link = `http://localhost:3000/vote/${hash}`;
+  // const link = `http://localhost:3000/vote/${hash}`;
+  const link = `http://43.200.168.42/vote/${hash}`;
 
   const handleCopy = () => {
     setCopied(true);

@@ -1,5 +1,16 @@
 .vote-detail-page {
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.vote-detail-page-body {
+	margin-top: 77px; /* Adjust this value to match the height of VoteHeader */
+  overflow-y: auto;
+  flex-grow: 1;
+
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .vote-detail-page h1 {

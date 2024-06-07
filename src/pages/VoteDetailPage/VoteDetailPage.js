@@ -5,6 +5,7 @@ import CopyLink from '../../components/CopyLink/CopyLink';
 import NicknameModal from '../../components/NicknameModal/NicknameModal';
 import RestaurantModal from '../../components/RestaurantModal/RestaurantModal';
 import VoteRestaurantCard from '../../components/VoteRestaurantCard/VoteRestaurantCard';
+import VoteHeader from '../../components/VoteHeader/VoteHeader';
 
 const VoteDetailPage = () => {
   const { hash } = useParams();
@@ -154,6 +155,12 @@ const VoteDetailPage = () => {
     }
   };
 
+	const formatExpireAt = (expireAt) => {
+		const date = new Date(expireAt);
+		date.setHours(date.getHours() + 9);
+		return date.toLocaleString();
+	};
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -164,41 +171,43 @@ const VoteDetailPage = () => {
 
   return (
     <div className="vote-detail-page">
-      <h1>{voteDetail.title}</h1>
-      {userInfo && (
-        <div>
-          <p>UserInfo: {userInfo.userId}</p>
-          <p>UserInfo: {userInfo.nickname}</p>
-          <p>UserInfo: {userInfo.profileImage}</p>
-        </div>
-      )}
-      <p>Vote Hash: {voteDetail.voteHash}</p>
-      <p>Expires At: {new Date(voteDetail.expireAt).toLocaleString()}</p>
-      <p>Allow Duplicate Vote: {voteDetail.allowDuplicateVote ? 'Yes' : 'No'}</p>
-      <h2>Vote Options</h2>
-      <ul>
-        {voteDetail.voteOptionInfoList.map(option => (
-          <VoteRestaurantCard
-            key={option.restaurantId}
-            option={option}
-            onClick={handleRestaurantClick}
-            isSelected={selectedRestaurants.includes(option.restaurantId)}
-          />
-        ))}
-      </ul>
-      <div>
-        <button onClick={handleSubmitVote} disabled={!isSubmitEnabled}>투표하기</button>
-        <button onClick={handleResetVote}>투표 다시하기</button>
+			<div className="vote-page-header">
+        <VoteHeader content="투표 작성" />
       </div>
-      <NicknameModal show={showModal} onSubmit={handleNicknameSubmit} />
-      {selectedRestaurant && (
-        <RestaurantModal
-          show={!!selectedRestaurant}
-          handleClose={handleCloseModal}
-          restaurant={selectedRestaurant}
-        />
-      )}
-      <CopyLink />
+			<div className='vote-detail-page-body'>
+				<h1>{voteDetail.title}</h1>
+				{userInfo && (
+					<div>
+						<p>닉네임: {userInfo.nickname}</p>
+					</div>
+				)}
+				<p>투표 종료 시각: {formatExpireAt(voteDetail.expireAt)}</p>
+				<p>중복 투표: {voteDetail.allowDuplicateVote ? '가능' : '불가능'}</p>
+				<h2>Vote Options</h2>
+				<ul>
+					{voteDetail.voteOptionInfoList.map(option => (
+						<VoteRestaurantCard
+							key={option.restaurantId}
+							option={option}
+							onClick={handleRestaurantClick}
+							isSelected={selectedRestaurants.includes(option.restaurantId)}
+						/>
+					))}
+				</ul>
+				<div>
+					<button onClick={handleSubmitVote} disabled={!isSubmitEnabled}>투표하기</button>
+					<button onClick={handleResetVote}>투표 다시하기</button>
+				</div>
+				<NicknameModal show={showModal} onSubmit={handleNicknameSubmit} />
+				{selectedRestaurant && (
+					<RestaurantModal
+						show={!!selectedRestaurant}
+						handleClose={handleCloseModal}
+						restaurant={selectedRestaurant}
+					/>
+				)}
+				<CopyLink />
+			</div>
     </div>
   );
 };
