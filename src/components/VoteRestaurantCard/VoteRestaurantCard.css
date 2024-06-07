@@ -1,0 +1,4 @@
+/* Add styles for the VoteRestaurantCard component */
+.vote-restaurant-card-selected {
+  background-color: #f0f0f0;
+}
