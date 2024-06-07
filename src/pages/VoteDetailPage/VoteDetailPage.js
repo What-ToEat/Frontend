@@ -81,6 +81,12 @@ const VoteDetailPage = () => {
     });
   };
 
+  const handleViewDetails = async (restaurant) => {
+		const response = await fetch(`http://43.200.168.42:8080/api/restaurants/${restaurant.restaurantId}`);
+		const result = await response.json();
+		setSelectedRestaurant(result.data);
+  };
+
   const handleCloseModal = () => {
     setSelectedRestaurant(null);
   };
@@ -191,6 +197,7 @@ const VoteDetailPage = () => {
 							option={option}
 							onClick={handleRestaurantClick}
 							isSelected={selectedRestaurants.includes(option.restaurantId)}
+							onViewDetails={handleViewDetails}
 						/>
 					))}
 				</ul>
