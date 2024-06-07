@@ -65,9 +65,14 @@ const VoteDetailPage = () => {
 
   const handleRestaurantClick = async (restaurantId) => {
     setSelectedRestaurants(prevState => {
-      const newSelection = prevState.includes(restaurantId)
-        ? prevState.filter(id => id !== restaurantId)
-        : [...prevState, restaurantId];
+      let newSelection;
+      if (voteDetail.allowDuplicateVote) {
+        newSelection = prevState.includes(restaurantId)
+          ? prevState.filter(id => id !== restaurantId)
+          : [...prevState, restaurantId];
+      } else {
+        newSelection = prevState.includes(restaurantId) ? [] : [restaurantId];
+      }
 
       setIsSubmitEnabled(JSON.stringify(newSelection) !== JSON.stringify(initialSelection));
 
@@ -93,13 +98,59 @@ const VoteDetailPage = () => {
         }),
       });
       const result = await response.json();
-      if (result.statusCode === 200) {
+      if (result.statusCode === 201) {
         alert('투표가 완료되었습니다.');
+        await fetchVoteDetail(); // Fetch the updated vote details
       } else {
-        setError('Failed to submit vote');
+        alert(result.message);
+				await fetchVoteDetail();
       }
     } catch (err) {
       setError('An error occurred while submitting the vote');
+    }
+  };
+
+  const handleResetVote = async () => {
+    try {
+      const response = await fetch(`http://43.200.168.42:8080/api/vote/${hash}/selection`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: userInfo.userId,
+          nickname: userInfo.nickname,
+        }),
+      });
+      const result = await response.json();
+      if (result.statusCode === 200) {
+        alert('투표 내용이 초기화되었습니다.');
+        await fetchVoteDetail();
+      } else {
+        alert(result.message);
+				await fetchVoteDetail();
+      }
+    } catch (err) {
+      setError('An error occurred while resetting the vote');
+    }
+  };
+
+  const fetchVoteDetail = async () => {
+    try {
+      const response = await fetch(`http://43.200.168.42/api/vote/${hash}`);
+      const data = await response.json();
+      if (data.statusCode === 200) {
+        setVoteDetail(data.data);
+        setInitialSelection(data.data.voteOptionInfoList.filter(option => option.isSelected).map(option => option.restaurantId));
+        setSelectedRestaurants([]);
+        setIsSubmitEnabled(false);
+      } else {
+        setError('Failed to fetch vote details');
+      }
+    } catch (err) {
+      setError('An error occurred while fetching the vote details');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -135,7 +186,10 @@ const VoteDetailPage = () => {
           />
         ))}
       </ul>
-      <button onClick={handleSubmitVote} disabled={!isSubmitEnabled}>투표하기</button>
+      <div>
+        <button onClick={handleSubmitVote} disabled={!isSubmitEnabled}>투표하기</button>
+        <button onClick={handleResetVote}>투표 다시하기</button>
+      </div>
       <NicknameModal show={showModal} onSubmit={handleNicknameSubmit} />
       {selectedRestaurant && (
         <RestaurantModal
