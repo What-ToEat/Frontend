@@ -190,9 +190,6 @@ const VoteDetailPage = () => {
           )}
           </div>
           <div className='vote-detail-page-divider'>
-            <svg xmlns="http://www.w3.org/2000/svg" width="369" height="2" viewBox="0 0 369 2" fill="none">
-              <path d="M1 1H368" stroke="#C3C3C3" stroke-width="2" stroke-linecap="round"/>
-            </svg>
           </div>
           <div>
             {voteDetail.voteOptionInfoList.map(option => (
@@ -205,10 +202,6 @@ const VoteDetailPage = () => {
               />
             ))}
           </div>
-          <div>
-            <button onClick={handleSubmitVote} disabled={!isSubmitEnabled}>투표하기</button>
-            <button onClick={handleResetVote}>투표 다시하기</button>
-          </div>
           <NicknameModal show={showModal} onSubmit={handleNicknameSubmit} />
           {selectedRestaurant && (
             <RestaurantModal
@@ -217,6 +210,10 @@ const VoteDetailPage = () => {
               restaurant={selectedRestaurant}
             />
           )}
+        </div>
+        <div className='vote-detail-page-button-container'>
+          <button className='vote-detail-page-vote-button' onClick={handleResetVote}>투표 다시하기</button>
+          <button className='vote-detail-page-vote-button' onClick={handleSubmitVote} disabled={!isSubmitEnabled}>투표하기</button>
         </div>
 				<CopyLink />
 			</div>
