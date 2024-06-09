@@ -190,7 +190,7 @@ const VoteDetailPage = () => {
 				<p>투표 종료 시각: {formatExpireAt(voteDetail.expireAt)}</p>
 				<p>중복 투표: {voteDetail.allowDuplicateVote ? '가능' : '불가능'}</p>
 				<h2>Vote Options</h2>
-				<ul>
+				<div>
 					{voteDetail.voteOptionInfoList.map(option => (
 						<VoteRestaurantCard
 							key={option.restaurantId}
@@ -200,7 +200,7 @@ const VoteDetailPage = () => {
 							onViewDetails={handleViewDetails}
 						/>
 					))}
-				</ul>
+				</div>
 				<div>
 					<button onClick={handleSubmitVote} disabled={!isSubmitEnabled}>투표하기</button>
 					<button onClick={handleResetVote}>투표 다시하기</button>
