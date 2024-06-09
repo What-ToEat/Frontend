@@ -93,3 +93,15 @@
 body.modal-open {
   overflow: hidden !important;
 }
+
+.restaurant-modal-review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.restaurant-modal-review-pagination {
+  font-size: 14px;
+  color: #999;
+}
+
