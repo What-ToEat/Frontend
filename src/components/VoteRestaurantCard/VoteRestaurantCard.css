@@ -9,7 +9,8 @@
   margin-bottom: 5px;
   width: 100%;
   height: 125px;
-  cursor: pointer;
+  cursor: pointer; /* Added to indicate that the card is clickable */
+  position: relative; /* Added for tooltip positioning */
 }
 
 .vote-restaurant-card-selected {
@@ -35,6 +36,7 @@
   flex-direction: column;
   justify-content: space-between; /* Ensure space between details and button */
   height: 100%; /* Ensure right side matches height of the thumbnail */
+  position: relative; /* Added for tooltip positioning */
 }
 
 .vote-restaurant-card-details {
@@ -46,7 +48,7 @@
 .vote-restaurant-card-name {
   color: #000;
   font-family: Inter;
-  font-size: 20px;
+  font-size: 18px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -56,6 +58,8 @@
 .vote-restaurant-card-voters {
   display: flex;
   align-items: center;
+  cursor: pointer; /* Indicate that it's clickable */
+  position: relative; /* Added for tooltip positioning */
 }
 
 .vote-restaurant-card-voters-icon {
@@ -70,6 +74,29 @@
   padding: 5px 10px;
   cursor: pointer;
   align-self: flex-start; /* Ensure button aligns to the bottom left */
+}
 
-  width: 100%;
+.vote-restaurant-card-voter-list-tooltip {
+  position: absolute;
+  top: 0; /* Align with the top of the voter count */
+  right: 0; /* Align to the right side within the component */
+  background: white;
+  border: 1px solid #C3C3C3;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  white-space: nowrap; /* Prevents wrapping */
+}
+
+.vote-restaurant-card-voter-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.vote-restaurant-card-voter {
+  margin-right: 10px;
+  font-family: Inter;
+  font-size: 14px;
 }
