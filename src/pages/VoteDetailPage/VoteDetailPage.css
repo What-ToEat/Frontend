@@ -13,11 +13,41 @@
   padding-right: 10px;
 }
 
-.vote-detail-page h1 {
-  font-size: 2em;
-  margin-bottom: 20px;
+.vote-detail-page-body-container {
+  border-radius: 10px;
+  background: #F6F6F6;
+  width: 100%;
+
+  padding: 16px;
+  margin-top: 9px;
 }
 
-.vote-detail-page p {
-  font-size: 1.2em;
+.vote-detail-page-title {
+  color: #000;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+
+  margin-bottom: 7px;
+}
+
+.vote-detail-page-content {
+  color: #000;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.vote-detail-page-divider {
+  stroke-width: 2px;
+  stroke: #C3C3C3;
+
+  width: 100%;
 }

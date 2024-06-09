@@ -42,7 +42,7 @@ const VoteRestaurantCard = ({ option, onClick, isSelected, onViewDetails }) => {
           <strong className="vote-restaurant-card-name">{option.restaurantName}</strong>
           <div className="vote-restaurant-card-voters" onClick={handleToggleVoterList}>
             <span className="vote-restaurant-card-voters-icon">👤</span>
-            <span>득표수: {option.voterList.length}</span>
+            <span className="vote-restaurant-card-voters-contents">득표수: {option.voterList.length}</span>
           </div>
           {showVoterList && (
             <div className="vote-restaurant-card-voter-list-tooltip" ref={voterListRef}>

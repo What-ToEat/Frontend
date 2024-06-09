@@ -181,38 +181,43 @@ const VoteDetailPage = () => {
         <VoteHeader content="투표 작성" />
       </div>
 			<div className='vote-detail-page-body'>
-				<h1>{voteDetail.title}</h1>
-				{userInfo && (
-					<div>
-						<p>닉네임: {userInfo.nickname}</p>
-					</div>
-				)}
-				<p>투표 종료 시각: {formatExpireAt(voteDetail.expireAt)}</p>
-				<p>중복 투표: {voteDetail.allowDuplicateVote ? '가능' : '불가능'}</p>
-				<h2>Vote Options</h2>
-				<div>
-					{voteDetail.voteOptionInfoList.map(option => (
-						<VoteRestaurantCard
-							key={option.restaurantId}
-							option={option}
-							onClick={handleRestaurantClick}
-							isSelected={selectedRestaurants.includes(option.restaurantId)}
-							onViewDetails={handleViewDetails}
-						/>
-					))}
-				</div>
-				<div>
-					<button onClick={handleSubmitVote} disabled={!isSubmitEnabled}>투표하기</button>
-					<button onClick={handleResetVote}>투표 다시하기</button>
-				</div>
-				<NicknameModal show={showModal} onSubmit={handleNicknameSubmit} />
-				{selectedRestaurant && (
-					<RestaurantModal
-						show={!!selectedRestaurant}
-						handleClose={handleCloseModal}
-						restaurant={selectedRestaurant}
-					/>
-				)}
+        <div className='vote-detail-page-body-container'>
+          <p className='vote-detail-page-title'>{voteDetail.title}</p>
+          <p className='vote-detail-page-content'>{formatExpireAt(voteDetail.expireAt)} 마감</p>
+          <p className='vote-detail-page-content'>중복 투표 {voteDetail.allowDuplicateVote ? '가능' : '불가능'}</p>
+          <div>{userInfo && (
+            <p className='vote-detail-page-content'>닉네임: {userInfo.nickname}</p>
+          )}
+          </div>
+          <div className='vote-detail-page-divider'>
+            <svg xmlns="http://www.w3.org/2000/svg" width="369" height="2" viewBox="0 0 369 2" fill="none">
+              <path d="M1 1H368" stroke="#C3C3C3" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            {voteDetail.voteOptionInfoList.map(option => (
+              <VoteRestaurantCard
+                key={option.restaurantId}
+                option={option}
+                onClick={handleRestaurantClick}
+                isSelected={selectedRestaurants.includes(option.restaurantId)}
+                onViewDetails={handleViewDetails}
+              />
+            ))}
+          </div>
+          <div>
+            <button onClick={handleSubmitVote} disabled={!isSubmitEnabled}>투표하기</button>
+            <button onClick={handleResetVote}>투표 다시하기</button>
+          </div>
+          <NicknameModal show={showModal} onSubmit={handleNicknameSubmit} />
+          {selectedRestaurant && (
+            <RestaurantModal
+              show={!!selectedRestaurant}
+              handleClose={handleCloseModal}
+              restaurant={selectedRestaurant}
+            />
+          )}
+        </div>
 				<CopyLink />
 			</div>
     </div>

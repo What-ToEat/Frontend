@@ -66,6 +66,15 @@
   margin-right: 5px;
 }
 
+.vote-restaurant-card-voters-contents {
+  color: #000;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  }
+
 .vote-restaurant-card-button {
   background-color: #F77248;
   color: #FFF;
