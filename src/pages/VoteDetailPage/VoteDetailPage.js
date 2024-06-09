@@ -18,6 +18,7 @@ const VoteDetailPage = () => {
   const [selectedRestaurants, setSelectedRestaurants] = useState([]);
   const [initialSelection, setInitialSelection] = useState([]);
   const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
+  const [isExpired, setIsExpired] = useState(false);
 
   useEffect(() => {
     const fetchVoteDetail = async () => {
@@ -27,6 +28,11 @@ const VoteDetailPage = () => {
         if (data.statusCode === 200) {
           setVoteDetail(data.data);
           setInitialSelection(data.data.voteOptionInfoList.filter(option => option.isSelected).map(option => option.restaurantId));
+          const currentTime = new Date();
+          const expirationTime = new Date(new Date(data.data.expireAt).getTime() + 9 * 60 * 60 * 1000); // Add 9 hours
+          if (currentTime > expirationTime) {
+            setIsExpired(true);
+          }
         } else {
           setError('Failed to fetch vote details');
         }
@@ -65,6 +71,8 @@ const VoteDetailPage = () => {
   };
 
   const handleRestaurantClick = async (restaurantId) => {
+    if (isExpired) return;
+    
     setSelectedRestaurants(prevState => {
       let newSelection;
       if (voteDetail.allowDuplicateVote) {
@@ -82,9 +90,9 @@ const VoteDetailPage = () => {
   };
 
   const handleViewDetails = async (restaurant) => {
-		const response = await fetch(`http://43.200.168.42:8080/api/restaurants/${restaurant.restaurantId}`);
-		const result = await response.json();
-		setSelectedRestaurant(result.data);
+    const response = await fetch(`http://43.200.168.42:8080/api/restaurants/${restaurant.restaurantId}`);
+    const result = await response.json();
+    setSelectedRestaurant(result.data);
   };
 
   const handleCloseModal = () => {
@@ -110,7 +118,7 @@ const VoteDetailPage = () => {
         await fetchVoteDetail(); // Fetch the updated vote details
       } else {
         alert(result.message);
-				await fetchVoteDetail();
+        await fetchVoteDetail();
       }
     } catch (err) {
       setError('An error occurred while submitting the vote');
@@ -135,7 +143,7 @@ const VoteDetailPage = () => {
         await fetchVoteDetail();
       } else {
         alert(result.message);
-				await fetchVoteDetail();
+        await fetchVoteDetail();
       }
     } catch (err) {
       setError('An error occurred while resetting the vote');
@@ -151,6 +159,13 @@ const VoteDetailPage = () => {
         setInitialSelection(data.data.voteOptionInfoList.filter(option => option.isSelected).map(option => option.restaurantId));
         setSelectedRestaurants([]);
         setIsSubmitEnabled(false);
+        const currentTime = new Date();
+        const expirationTime = new Date(new Date(data.data.expireAt).getTime() + 9 * 60 * 60 * 1000); // Add 9 hours
+        if (currentTime > expirationTime) {
+          setIsExpired(true);
+        } else {
+          setIsExpired(false);
+        }
       } else {
         setError('Failed to fetch vote details');
       }
@@ -161,11 +176,19 @@ const VoteDetailPage = () => {
     }
   };
 
-	const formatExpireAt = (expireAt) => {
-		const date = new Date(expireAt);
-		date.setHours(date.getHours() + 9);
-		return date.toLocaleString();
-	};
+  const formatExpireAt = (expireAt) => {
+    const date = new Date(new Date(expireAt).getTime() + 9 * 60 * 60 * 1000); // Add 9 hours
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? '오후' : '오전';
+    const formattedHours = hours % 12 || 12;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+
+    return `${year}년 ${month}월 ${day}일 ${ampm} ${formattedHours}시 ${formattedMinutes}분`;
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -177,10 +200,10 @@ const VoteDetailPage = () => {
 
   return (
     <div className="vote-detail-page">
-			<div className="vote-page-header">
+      <div className="vote-page-header">
         <VoteHeader content="투표 작성" />
       </div>
-			<div className='vote-detail-page-body'>
+      <div className='vote-detail-page-body'>
         <div className='vote-detail-page-body-container'>
           <p className='vote-detail-page-title'>{voteDetail.title}</p>
           <p className='vote-detail-page-content'>{formatExpireAt(voteDetail.expireAt)} 마감</p>
@@ -202,7 +225,7 @@ const VoteDetailPage = () => {
               />
             ))}
           </div>
-          <NicknameModal show={showModal} onSubmit={handleNicknameSubmit} />
+          {!isExpired && <NicknameModal show={showModal} onSubmit={handleNicknameSubmit} />}
           {selectedRestaurant && (
             <RestaurantModal
               show={!!selectedRestaurant}
@@ -212,11 +235,15 @@ const VoteDetailPage = () => {
           )}
         </div>
         <div className='vote-detail-page-button-container'>
-          <button className='vote-detail-page-vote-button' onClick={handleResetVote}>투표 다시하기</button>
-          <button className='vote-detail-page-vote-button' onClick={handleSubmitVote} disabled={!isSubmitEnabled}>투표하기</button>
+          {!isExpired && (
+            <>
+              <button className='vote-detail-page-vote-button' onClick={handleResetVote}>투표 다시하기</button>
+              <button className='vote-detail-page-vote-button' onClick={handleSubmitVote} disabled={!isSubmitEnabled}>투표하기</button>
+            </>
+          )}
         </div>
-				<CopyLink />
-			</div>
+        <CopyLink />
+      </div>
     </div>
   );
 };
