@@ -12,7 +12,7 @@
 }
 
 .vote-page-body {
-  margin-top: 77px; /* Adjust this value to match the height of VoteHeader */
+  margin-top: 60px; /* Adjust this value to match the height of VoteHeader */
   margin-bottom: 104px; /* Adjust this value to match the height of VoteSubmitButton */
   overflow-y: auto;
   flex-grow: 1;
