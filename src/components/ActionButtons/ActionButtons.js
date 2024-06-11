@@ -1,17 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import RestaurantModal from '../RestaurantModal/RestaurantModal';
 import './ActionButtons.css';
 
 const ActionButtons = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const navigate = useNavigate();
 
-  const handleRecommendClick = () => {
-    // 모달창을 띄우는 임시 구현
-    alert('추천 기능은 아직 구현 중입니다.');
+  const handleRecommendClick = async () => {
+    try {
+      const response = await fetch('http://43.200.168.42:8080/api/restaurants/random');
+      const result = await response.json();
+      setSelectedRestaurant(result.data);
+      setShowModal(true);
+    } catch (error) {
+      console.error('Error fetching random restaurant:', error);
+    }
   };
 
   const handleVoteClick = () => {
     navigate('/vote');
+  };
+
+  const handleClose = () => {
+    setShowModal(false);
   };
 
   return (
@@ -24,6 +37,13 @@ const ActionButtons = () => {
         <div className="action-button-icon"></div>
         <p className='action-button-content'>함께 고르기</p>
       </button>
+      {selectedRestaurant && (
+        <RestaurantModal
+          show={showModal}
+          handleClose={handleClose}
+          restaurant={selectedRestaurant}
+        />
+      )}
     </div>
   );
 }
