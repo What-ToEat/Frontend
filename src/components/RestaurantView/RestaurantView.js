@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { selectedTagsState } from '../../recoil/state';
 import RestaurantCard from '../RestaurantCard/RestaurantCard';
+import RestaurantModal from '../RestaurantModal/RestaurantModal';
 import './RestaurantView.css';
 
 const RestaurantView = ({ restaurants, searchKeyword }) => {
   const selectedTags = useRecoilValue(selectedTagsState);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+
+  const handleCardClick = async (restaurantId) => {
+    const response = await fetch(`http://43.200.168.42:8080/api/restaurants/${restaurantId}`);
+    const result = await response.json();
+    setSelectedRestaurant(result.data);
+    setShowModal(true);
+  };
+
+  const handleClose = () => setShowModal(false);
 
   return (
     <div className='restaurant-view'>
@@ -20,6 +32,7 @@ const RestaurantView = ({ restaurants, searchKeyword }) => {
                 name={restaurant.name} 
                 thumbnail={restaurant.thumbnail} 
                 tags={restaurant.tags}
+                onClick={() => handleCardClick(restaurant.restaurantId)}
               />
             </div>
           ))}
@@ -28,6 +41,13 @@ const RestaurantView = ({ restaurants, searchKeyword }) => {
         <div className="no-restaurants">
           조회된 레스토랑이 없습니다.
         </div>
+      )}
+      {selectedRestaurant && (
+        <RestaurantModal 
+          show={showModal} 
+          handleClose={handleClose} 
+          restaurant={selectedRestaurant} 
+        />
       )}
     </div>
   );

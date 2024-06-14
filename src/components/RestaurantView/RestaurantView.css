@@ -6,6 +6,7 @@
 	background: #F6F6F6;
 	padding: 15px;
 	min-height: 500px;
+	box-sizing: border-box;
 }
 
 .restaurant-grid-title {
@@ -20,7 +21,7 @@
 
 .restaurant-grid {
 	display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, calc(50% - 3.5px));
   gap: 7px; /* 카드 간의 간격을 조정합니다 */
   width: 100%; /* 그리드가 화면 너비를 초과하지 않도록 설정 */
   box-sizing: border-box; /* 패딩과 보더를 전체 크기에 포함 */

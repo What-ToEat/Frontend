@@ -1,0 +1,95 @@
+.restaurant-modal-custom {
+  width: 90%;
+  max-width: none;
+  margin: auto;
+}
+
+.restaurant-modal-body-custom {
+  height: 70vh;
+  overflow-y: hidden;
+}
+
+.restaurant-modal-thumbnail {
+  width: 100%;
+  height: 30%;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: lightgray 50% / cover no-repeat;
+  margin: 0 auto;
+}
+
+.restaurant-modal-title-wrapper {
+  display: flex;
+  justify-content: left;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-top: 10px;
+}
+
+.restaurant-modal-title {
+  color: #000;
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  position: relative;
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin: 0;
+}
+
+.restaurant-modal-tag-container {
+  max-height: 20%;
+  overflow-y: auto;
+  margin-top: 3px;
+}
+
+.restaurant-modal-divider {
+  border: 0;
+  height: 2px;
+  background: #F77248;
+  margin: 10px 0;
+}
+
+.restaurant-modal-review-section {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.restaurant-modal-review-section > h5 {
+  margin-bottom: 5px;
+}
+
+.restaurant-modal-review-list {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  transition: height 0.3s ease-in-out;
+}
+
+.restaurant-modal-review-item {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+}
+
+.restaurant-modal-review-content {
+  min-width: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+  height: 100%;
+
+  color: #000000;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
+body.modal-open {
+  overflow: hidden !important;
+}
