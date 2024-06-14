@@ -1,11 +1,68 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import VoteForm from '../../components/VoteForm/VoteForm';
+import VoteRestaurantGrid from '../../components/VoteRestaurantGrid/VoteRestaurantGrid';
+import VoteRestaurantModal from '../../components/VoteRestaurantModal/VoteRestaurantModal';
+import VoteHeader from '../../components/VoteHeader/VoteHeader';
+import VoteSubmitButton from '../../components/VoteForm/VoteSubmitButton';
 import './VotePage.css';
 
 const VotePage = () => {
+  const [restaurants, setRestaurants] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const formRef = useRef(null);
+  const navigate = useNavigate();
+
+  const addRestaurant = (restaurant) => {
+    if (!restaurants.some(r => r.restaurantId === restaurant.restaurantId)) {
+      setRestaurants([...restaurants, restaurant]);
+    }
+    setShowModal(false);
+  };
+
+  const handleSubmit = async ({ title, email, allowDuplicateVote, expirationTime, restaurants }) => {
+
+    const response = await fetch('http://43.200.168.42/api/vote', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title,
+        email,
+        allowDuplicateVote,
+        expirationTime,
+        restaurants: restaurants.map(r => r.restaurantId),
+      }),
+    });
+
+    const responseData = await response.json();
+    console.log(responseData);
+
+    if (response.ok) {
+      alert('투표가 생성되었습니다!');
+      navigate('/');
+    } else {
+      alert('투표 생성에 실패했습니다.');
+    }
+  };
+
   return (
     <div className="vote-page">
-      <h2>뭐먹을까?</h2>
-      <p>뭐먹을까 투표 페이지입니다.</p>
+      <div className="vote-page-header">
+        <VoteHeader content="투표 작성" />
+      </div>
+      <div className="vote-page-body">
+        <VoteForm ref={formRef} restaurants={restaurants} onSubmit={handleSubmit} />
+        <VoteRestaurantGrid restaurants={restaurants} onAddClick={() => setShowModal(true)} />
+      </div>
+      <div className="vote-page-footer">
+        <VoteSubmitButton
+          onClick={() => formRef.current.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }))}
+          disabled={restaurants.length === 0}
+        />
+      </div>
+      <VoteRestaurantModal show={showModal} onHide={() => setShowModal(false)} onAdd={addRestaurant} />
     </div>
   );
 };

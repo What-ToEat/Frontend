@@ -1,0 +1,51 @@
+.vote-form-container {
+  border: 2px solid #ff7f50; /* Coral border color */
+  border-radius: 10px;
+  padding: 15px;
+	padding-bottom: 0;
+	width: 100%;
+	margin-top: 9px;
+}
+
+.vote-form-group {
+  margin-bottom: 10px;
+}
+
+.vote-form-label {
+	text-align: left;
+  display: block;
+  margin-bottom: 3px;
+  font-weight: bold;
+}
+
+.vote-form-input,
+.vote-form-select {
+  width: 100%;
+	height: 35px;
+  padding: 7px;
+	padding-left: 11px;
+
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+
+	font-size: 15px;
+}
+
+.vote-form-checkbox {
+  margin-right: 10px;
+}
+
+.vote-form-button {
+  background-color: #ff7f50; /* Coral background color */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.vote-form-button:hover {
+  background-color: #ff6347; /* Darker coral on hover */
+}
