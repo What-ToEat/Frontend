@@ -37,11 +37,11 @@ const VotePage = () => {
     });
 
     const responseData = await response.json();
-    console.log(responseData);
+    const voteHash = responseData.data.voteHash;
 
     if (response.ok) {
       alert('투표가 생성되었습니다!');
-      navigate('/');
+      navigate('/vote/' + voteHash);
     } else {
       alert('투표 생성에 실패했습니다.');
     }

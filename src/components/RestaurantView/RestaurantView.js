@@ -21,8 +21,6 @@ const RestaurantView = ({ restaurants, searchKeyword, onRestaurantClick, selecte
     }
   };
 
-  console.log('selectedRestaurantId:', selectedRestaurantId);
-
   const handleClose = () => setShowModal(false);
 
   return (

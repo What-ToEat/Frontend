@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import HomePage from './pages/HomePage/HomePage';
 import ViewPage from './pages/ViewPage/ViewPage';
 import VotePage from './pages/VotePage/VotePage';
+import VoteDetailPage from './pages/VoteDetailPage/VoteDetailPage';  // 새로운 컴포넌트를 임포트합니다.
 
 function App() {
   useEffect(() => {
@@ -29,6 +30,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/view" element={<ViewPage />} />
             <Route path="/vote" element={<VotePage />} />
+            <Route path="/vote/:hash" element={<VoteDetailPage />} />
           </Routes>
         </div>
       </div>

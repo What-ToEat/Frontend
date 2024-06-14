@@ -7,12 +7,7 @@
   border: 1px solid #D9D9D9;
   background: #FFF;
   padding: 6px;
-  transition: transform 0.3s ease, background-color 0.3s ease; /* 애니메이션 추가 */
-}
-
-.card:hover {
-  transform: scale(1.02); /* 살짝 확대 효과 */
-  background-color: rgba(0, 0, 0, 0.1); /* 살짝 어두워지는 효과 */
+  transition: background-color 0.3s ease; /* 배경색 전환 애니메이션 추가 */
 }
 
 .card-image {
